@@ -1,0 +1,62 @@
+@import 'variables';
+@import 'mixins';
+
+
+.custom-input-container {
+
+  position: relative;
+
+  img {
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    left: 25px;
+    top: 15px;
+  }
+
+  .custom-input {
+    width: 100%;
+
+    padding: 15px 30px 15px 50px;
+
+    border-radius: 15px;
+    border: none;
+    background-color: $primary-color;
+
+    color: $text-color;
+
+    @include shadow(0.05);
+
+    font-size: 0.9rem;
+  }
+
+  .address-list {
+      background-color: $primary-color;
+      padding: 10px 20px;
+      border-radius: 15px;
+      max-height: 250px;
+      overflow-y: auto;
+      position: absolute;
+      z-index: 10;
+
+      .address {
+          border-bottom: 1px solid rgb(232, 232, 232);
+          padding: 10px 0;
+          cursor: pointer;
+
+          h4 {
+              color: $text-color;
+          }
+
+          p {
+              color: $secondary-text-color;
+          }
+
+          &:hover {
+              opacity: 0.7;
+          }
+      }
+  }
+}

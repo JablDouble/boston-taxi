@@ -1,0 +1,18 @@
+<div class="account-info">
+    <div class="text-center">
+        <img src="/assets/img/user.png">
+    </div>
+    <app-data-record *ngIf="taxiDriver" [title]="taxiDriver.name" [text]="taxiDriver.phone"></app-data-record>
+</div>
+<div class="car-info">
+    <div class="text-center">
+        <img class="active-icon" src="/assets/img/car.svg">
+    </div>
+    <app-data-record [title]="vehicle?.brand + ' ' + vehicle?.model" [text]="vehicle?.plateNumber || ''"></app-data-record>
+</div>
+<div class="time-info">
+    <div class="text-center">
+        <img src="/assets/img/time.svg" class="icon">
+    </div>
+    <p>7 min</p>
+</div>

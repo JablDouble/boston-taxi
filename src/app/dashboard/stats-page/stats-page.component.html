@@ -1,0 +1,12 @@
+<app-card>
+    <app-table [headItems]="headItems">
+        <tr *ngFor="let trip of trips">
+            <th>{{trip.time | date:'short'}}</th>
+            <th>{{trip.vehicle.brand}} {{trip.vehicle.model}}</th>
+            <th>{{trip.pickupAddress.label }}</th>
+            <th>{{trip.arrivalAddress.label }}</th>
+            <th>{{trip.amount | currency:'USD'}}</th>
+            <th>{{trip.paymentWay || 'cash'}}</th>
+        </tr>
+    </app-table>
+</app-card>

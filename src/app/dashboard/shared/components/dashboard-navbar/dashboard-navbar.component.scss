@@ -1,0 +1,36 @@
+@import 'variables';
+@import 'mixins';
+
+.navbar {
+  @include shadow(0.02);
+
+  background-color: $secondary-color;
+  height: 100vh;
+
+  position: relative;
+  z-index: 10;
+
+  padding: 60px 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .active-link {
+
+    .navbar-img {
+      filter: invert(90%) sepia(39%) saturate(1791%) hue-rotate(314deg) brightness(101%) contrast(98%);
+    }
+
+  }
+
+  &-link {
+    padding: 20px 0;
+  }
+
+  &-img {
+    width: 25px;
+    height: 25px;
+  }
+
+}

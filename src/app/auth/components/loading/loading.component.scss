@@ -1,0 +1,22 @@
+@import 'animations';
+
+.loading {
+    position: fixed;
+
+    z-index: 10;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #fff;
+    height: 100vh;
+    width: 100%;
+
+    &-logo {
+        width: 70px;
+        height: 90px;
+
+        animation: appearance 1s;
+    }
+}

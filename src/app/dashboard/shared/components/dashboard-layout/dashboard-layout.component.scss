@@ -1,0 +1,18 @@
+@import 'variables';
+
+.dashboard {
+
+  display: grid;
+  grid-template-columns: 1fr 11fr;
+
+  .main-block {
+    display: grid;
+    grid-template-rows: max-content;
+
+    .content {
+      background-color: $primary-color;
+      padding: 10px 45px;
+    }
+  }
+
+}

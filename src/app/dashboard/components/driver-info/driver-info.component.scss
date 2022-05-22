@@ -1,0 +1,43 @@
+@import 'variables';
+
+.account-info,
+.car-info,
+.time-info {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+  gap: 5px;
+
+  p {
+    color: $secondary-text-color;
+    font-weight: bold;
+  }
+}
+
+.account-info,
+.car-info {
+
+  border-bottom: 3px solid $primary-color;
+
+  img {
+    text-align: center;
+  }
+
+  .active-icon,
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  h4 {
+    color: $text-color;
+  }
+}
+
+.time-info {
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}

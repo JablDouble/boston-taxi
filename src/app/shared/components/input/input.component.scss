@@ -1,0 +1,22 @@
+@import 'variables';
+
+.input-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+
+    input {
+        border: none;
+        padding: 15px 10px;
+        border-bottom: 1px solid $gray;
+        outline-color: $gray;
+        color: $secondary-text-color;
+        font-weight: 600;
+        border-radius: 5px;
+
+        &:focus {
+            border-radius: 15px;
+        }
+    }
+}

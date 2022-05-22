@@ -1,0 +1,19 @@
+@import 'variables';
+
+.home {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  gap: 40px;
+
+  h4 {
+    color: $text-color;
+  }
+
+  .home-cards {
+    display: grid;
+    grid-template-rows: 0.7fr 0.4fr 1fr;
+
+    gap: 20px;
+  }
+
+}

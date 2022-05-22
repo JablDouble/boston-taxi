@@ -1,0 +1,10 @@
+<div class="input-wrapper">
+    <label [for]="id">{{ label }}</label>
+    <input [type]="type" [id]="id" [placeholder]="placeholder" autocomplete="on" [formControl]="control">
+    <div class="validation" *ngIf="control.touched && error">
+        <small *ngIf="error?.['required']">Required field</small>
+        <small *ngIf="error?.['minlength']">Minimal length {{error?.['minlength'].requiredLength }}</small>
+        <small *ngIf="error?.['maxlength']">Maximal length {{error?.['maxlength'].requiredLength }}</small>
+        <small *ngIf="error?.['email']">Field is email</small>
+    </div>
+</div>

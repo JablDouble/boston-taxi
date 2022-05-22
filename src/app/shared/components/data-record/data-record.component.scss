@@ -1,0 +1,15 @@
+@import 'variables';
+
+.data-record {
+
+  margin-bottom: 15px;
+
+  p {
+    color: $secondary-text-color;
+    font-weight: bold;
+  }
+
+  h4 {
+    color: $text-color;
+  }
+}

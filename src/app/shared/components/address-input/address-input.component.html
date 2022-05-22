@@ -1,0 +1,11 @@
+<div class="custom-input-container">
+    <img [src]="iconUrl" class="icon" alt="icon of input" *ngIf="iconUrl">
+    <input class="custom-input" [placeholder]="placeholder" [type]="type" [value]="value" (input)="searchAddress()"
+        [(ngModel)]="addressSearch" (focus)="isOpenAddressesList = true">
+    <div class="address-list" *ngIf="isOpenAddressesList && addresses.length">
+        <div class="address" *ngFor="let address of addresses" (click)="selectAddress(address)">
+            <h4>{{ address.label }}</h4>
+            <p>{{ address.locality }}, {{ address.country }}</p>
+        </div>
+    </div>
+</div>

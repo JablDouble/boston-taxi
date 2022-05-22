@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+
+.card {
+  background-color: $secondary-color;
+
+  @include shadow(0.06);
+
+  padding: 30px;
+  border-radius: 15px;
+
+  animation: appearance 0.8s;
+
+  position: relative;
+
+  .development-block {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.85;
+  }
+}

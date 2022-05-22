@@ -1,0 +1,20 @@
+@import 'variables';
+@import 'mixins';
+
+.custom-select {
+  width: 100%;
+
+  border-radius: 15px;
+  padding: 15px;
+
+  border: none;
+  background-color: $primary-color;
+  color: $text-color;
+
+  @include shadow(0.06);
+
+  option {
+      color: $text-color;
+  }
+
+}

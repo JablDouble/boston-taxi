@@ -1,0 +1,44 @@
+@import 'variables';
+
+.btn {
+
+  width: 100%;
+
+  display: inline-block;
+  background: $button-primary-color;
+  color: $primary-color;
+  border-radius: 25px;
+
+  padding: 0.8rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.8;
+  }
+}
+
+.btn-link {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+
+.btn-success {
+  background: $success-color;
+  color: #fff;
+}

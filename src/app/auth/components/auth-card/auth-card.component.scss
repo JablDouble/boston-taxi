@@ -1,0 +1,36 @@
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+
+.auth-card {
+    padding: 0 70px 30px;
+    background-color: $secondary-color;
+    border-radius: 25px;
+
+    display: grid;
+    grid-template-rows: 2fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+
+    min-width: 450px;
+
+    @include shadow(0.08);
+
+    animation: appearance 0.8s;
+
+    .logo {
+        width: 50px;
+        height: 60px;
+    }
+
+    .description {
+        h3 {
+            color: $text-color;
+        }
+
+        p {
+            color: $secondary-text-color;
+        }
+    }
+
+}

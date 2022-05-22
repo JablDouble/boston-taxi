@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "792bca72-fdc0-4335-99f7-72abbf107dd0"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -33,7 +36,15 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles/"
+              ]
+            },
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "ng2-cookies"
+           ]
           },
           "configurations": {
             "production": {

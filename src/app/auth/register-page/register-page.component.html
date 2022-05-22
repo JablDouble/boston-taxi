@@ -1,0 +1,15 @@
+<app-auth-card title="Register to continue">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div>
+            <app-input label="Name" id="name" formControlName="name" [error]="registerForm?.get('name')?.errors"></app-input>
+            <app-input label="Surname" id="surname" formControlName="surname" [error]="registerForm?.get('surname')?.errors">
+            </app-input>
+        </div>
+        <app-input label="Email" id="email" formControlName="email" [error]="registerForm?.get('email')?.errors"></app-input>
+        <app-input label="Password" id="password" type="password" formControlName="password"
+            [error]="registerForm?.get('password')?.errors">
+        </app-input>
+        <app-button [success]="true" [disabledButton]="registerForm.invalid">Sign Up</app-button>
+    </form>
+    <p class="text-center">Are you already User? <a routerLink="/auth/login">Sign In</a></p>
+</app-auth-card>
