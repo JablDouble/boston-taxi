@@ -1,20 +1,15 @@
 import { NgModule, Provider } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { SharedModule } from "../shared/shared.module";
-import { AuthLayoutComponent } from './shared/components/auth-layout/auth-layout.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
+import { AuthLayoutComponent } from './components/auth-layout/auth-layout.component';
 import { AuthCardComponent } from './components/auth-card/auth-card.component';
 import { CookieService } from "ng2-cookies";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { LoaderInterceptor } from "../shared/interceptors/loader-interceptors.service";
 import { LoadingComponent } from './components/loading/loading.component';
-
-const LOADER_INTERCEPTOR_PROVIDER: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: LoaderInterceptor
-}
+import { ButtonModule } from "../common/components/button/button.module";
+import { InputModule } from "../common/components/input/input.module";
+import { ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { LoginPageComponent } from "./pages/login-page/login-page.component";
+import { RegisterPageComponent } from "./pages/register-page/register-page.component";
 
 @NgModule({
   imports: [
@@ -27,7 +22,10 @@ const LOADER_INTERCEPTOR_PROVIDER: Provider = {
         ]
       }
     ]),
-    SharedModule,
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputModule
   ],
   declarations: [
     AuthLayoutComponent,
@@ -38,9 +36,7 @@ const LOADER_INTERCEPTOR_PROVIDER: Provider = {
   ],
   exports: [RouterModule],
   providers: [
-
-    CookieService,
-    LOADER_INTERCEPTOR_PROVIDER
+    CookieService
   ]
 })
 export class AuthModule {

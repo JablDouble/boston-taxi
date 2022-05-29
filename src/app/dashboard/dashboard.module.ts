@@ -1,25 +1,32 @@
 import { CommonModule } from "@angular/common";
 import { NgModule, Provider } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { HomePageComponent } from "./home-page/home-page.component";
-import { DashboardLayoutComponent } from "./shared/components/dashboard-layout/dashboard-layout.component";
-import { StatsPageComponent } from './stats-page/stats-page.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { StatsPageComponent } from './pages/stats-page/stats-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { CardComponent } from './components/card/card.component';
 import { AgmCoreModule } from "@agm/core";
 import { environment } from "src/environments/environment";
 import { MapComponent } from './components/map/map.component';
-import { SharedModule } from "../shared/shared.module";
-import { MapService } from "./shared/services/map.service";
+import { MapService } from "./services/map.service";
 import { DriverInfoComponent } from './components/driver-info/driver-info.component';
 import { PaymentManageComponent } from './components/payment-manage/payment-manage.component';
 import { PaymentSelectComponent } from './components/payment-select/payment-select.component';
-import { PaymentService } from "./shared/services/payment.service";
-import { AuthGuard } from "../auth/shared/services/auth.guard";
+import { PaymentService } from "./services/payment.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { AuthInterceptor } from "../auth/shared/interceptors/auth.interceptor";
-import { TripService } from "./shared/services/trip.service";
+import { AuthInterceptor } from "../auth/interceptors/auth.interceptor";
+import { TripService } from "./services/trip.service";
 import { AccountInfoComponent } from './components/account-info/account-info.component';
+import { AddressInputModule } from "../common/components/address-input/address-input.module";
+import { ButtonModule } from "../common/components/button/button.module";
+import { DataRecordModule } from "../common/components/data-record/data-record.module";
+import { InputModule } from "../common/components/input/input.module";
+import { TableModule } from "../common/components/table/table.module";
+import { ReactiveFormsModule } from "@angular/forms";
+import { DashboardLayoutComponent } from "./components/dashboard-layout/dashboard-layout.component";
+import { AuthGuard } from "../auth/services/auth.guard";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { HeaderComponent } from "./components/header/header.component";
 
 const AUTH_INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -43,7 +50,13 @@ const AUTH_INTERCEPTOR_PROVIDER: Provider = {
             apiKey: environment.GOOGLE_MAPS_API_KEY,
             libraries: ['places']
         }),
-        SharedModule,
+        CommonModule,
+        ReactiveFormsModule,
+        AddressInputModule,
+        ButtonModule,
+        DataRecordModule,
+        InputModule,
+        TableModule
     ],
     declarations: [
         HomePageComponent,
@@ -54,13 +67,15 @@ const AUTH_INTERCEPTOR_PROVIDER: Provider = {
         DriverInfoComponent,
         PaymentManageComponent,
         PaymentSelectComponent,
-        AccountInfoComponent
+        AccountInfoComponent,
+        DashboardLayoutComponent,
+        HeaderComponent,
+        NavbarComponent
     ],
     exports: [RouterModule],
     providers: [
         MapService,
         PaymentService,
-        AuthGuard,
         TripService,
         AUTH_INTERCEPTOR_PROVIDER
     ]
