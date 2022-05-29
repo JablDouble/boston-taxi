@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/auth/shared/services/auth.service';
-import { CreditCard } from 'src/app/shared/interfaces';
-import { PaymentService } from '../../shared/services/payment.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { CreditCard } from 'src/app/dashboard/interfaces';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
   selector: 'app-payment-manage',

@@ -1,24 +1,31 @@
-import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule, Provider } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardHeaderComponent } from './dashboard/shared/components/dashboard-header/dashboard-header.component';
-import { DashboardLayoutComponent } from './dashboard/shared/components/dashboard-layout/dashboard-layout.component';
-import { DashboardNavbarComponent } from './dashboard/shared/components/dashboard-navbar/dashboard-navbar.component';
-import { SharedModule } from './shared/shared.module';
+import { LoaderInterceptor } from './common/interceptors/loader-interceptors.service';
+
+const LOADER_INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: LoaderInterceptor
+}
 
 @NgModule({
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [
-    AppComponent,
-    DashboardLayoutComponent,
-    DashboardHeaderComponent,
-    DashboardNavbarComponent
+    AppComponent
   ],
-  providers: [],
+  providers: [
+    LOADER_INTERCEPTOR_PROVIDER
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
