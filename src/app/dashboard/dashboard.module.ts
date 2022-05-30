@@ -13,7 +13,7 @@ import { DriverInfoComponent } from './components/driver-info/driver-info.compon
 import { PaymentManageComponent } from './components/payment-manage/payment-manage.component';
 import { PaymentSelectComponent } from './components/payment-select/payment-select.component';
 import { PaymentService } from "./services/payment.service";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "../auth/interceptors/auth.interceptor";
 import { TripService } from "./services/trip.service";
 import { AccountInfoComponent } from './components/account-info/account-info.component';
@@ -56,7 +56,8 @@ const AUTH_INTERCEPTOR_PROVIDER: Provider = {
         ButtonModule,
         DataRecordModule,
         InputModule,
-        TableModule
+        TableModule,
+        HttpClientModule
     ],
     declarations: [
         HomePageComponent,

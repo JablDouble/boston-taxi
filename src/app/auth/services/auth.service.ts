@@ -4,7 +4,6 @@ import { FirebaseAuthResponse, AuthDataUser } from "src/app/auth/interfaces";
 import { catchError, Observable, Subject, tap, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { ProfileService } from "src/app/common/services/profile.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class AuthService {
     return Cookie.get('token');
   }
 
-  constructor(private http: HttpClient, private profileService: ProfileService) {
+  constructor(private http: HttpClient) {
   }
 
   register(user: AuthDataUser): Observable<any> {
