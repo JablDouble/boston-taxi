@@ -14,12 +14,17 @@ export class PaymentService {
   }
 
   getAllCreditCards(): Observable<CreditCard[]> {
-    return this.http.get<CreditCard[]>(`${environment.FIREBASE_API_URL}cards.json`).pipe(
-      map((response: { [key: string]: any }) => {
-        return response ? Object.keys(response).map((key: string) => ({
-          ...response[key],
-          id: key
-        })) : [];
+    return this.http.get<{ [key: string]: CreditCard }>(`${environment.FIREBASE_API_URL}cards.json`).pipe(
+      map((creditCards) => {
+
+        if (creditCards) {
+          return Object.keys(creditCards).map((key: string) => ({
+            ...creditCards[key],
+            id: key
+          }))
+        }
+
+        return [];
       })
     );
   }

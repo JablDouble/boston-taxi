@@ -1,26 +1,19 @@
 @import 'variables';
 
-table {
+.header-cell {
+  color: $head-text-color;
+  font-size: 0.9rem;
+  padding: 7px;
+  text-align: left;
+}
 
-  thead {
-    th {
-      color: $head-text-color;
-      font-size: 0.9rem;
-      padding: 7px;
-      text-align: left;
-    }
-  }
 
-  tbody {
+::ng-deep tr:nth-child(2n+1) {
+  background-color: $primary-color;
+}
 
-    &::ng-deep tr:nth-child(2n+1) {
-      background-color: $primary-color;
-    }
-
-    &::ng-deep th {
-      color: $secondary-text-color;
-      padding: 7px;
-      text-align: left;
-    }
-  }
+::ng-deep th {
+  color: $secondary-text-color;
+  padding: 7px;
+  text-align: left;
 }

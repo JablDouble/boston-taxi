@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable, Provider } from "@angular/core";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
@@ -31,4 +31,10 @@ export class AuthInterceptor implements HttpInterceptor {
             }));
     }
 
+}
+
+export const AUTH_INTERCEPTOR_PROVIDER: Provider = {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthInterceptor
 }
