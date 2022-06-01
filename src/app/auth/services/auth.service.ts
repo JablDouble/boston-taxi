@@ -10,8 +10,6 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class AuthService {
 
-  error$: Subject<string> = new Subject<string>();
-
   get token() {
     return Cookie.get('token');
   }
@@ -30,7 +28,6 @@ export class AuthService {
     })
       .pipe(
         tap(this.setToken),
-        catchError(error => this.handleError(error))
       );
   };
 
@@ -45,7 +42,6 @@ export class AuthService {
     })
       .pipe(
         tap(this.setToken),
-        catchError(error => this.handleError(error))
       );
   };
 
@@ -55,28 +51,6 @@ export class AuthService {
 
   isAuth(): boolean {
     return !!this.token;
-  }
-
-  handleError(error: HttpErrorResponse) {
-    console.error(error);
-    const { message } = error.error.error;
-
-    switch (message) {
-      case 'EMAIL_NOT_FOUND':
-        this.error$.next('User was not found');
-        break;
-      case 'INVALID_EMAIL':
-        this.error$.next('Invalid email');
-        break;
-      case 'INVALID_PASSWORD':
-        this.error$.next('Invalid password');
-        break;
-      default:
-        this.error$.next('Something went wrong');
-        break;
-    }
-
-    return throwError(() => new Error(message));
   }
 
   private setToken(response: FirebaseAuthResponse | null) {

@@ -1,7 +1,4 @@
 <app-loading *ngIf="loadingService.isLoading$ | async"></app-loading>
-<div class="alert alert-danger fixed" *ngIf="authService.error$ | async as error">
-    {{error}}
-</div>
 <div class="container auth-container">
     <router-outlet></router-outlet>
 </div>
