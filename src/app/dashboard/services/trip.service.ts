@@ -6,8 +6,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TripService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createNewTrip(trip: Trip): Observable<string> {
     return this.http.post<string>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
@@ -18,9 +17,9 @@ export class TripService {
       map((response: { [key: string]: any }) => {
         return Object.keys(response).map((key: string) => ({
           ...response[key],
-          id: key
+          id: key,
         }));
-      })
-    );;
+      }),
+    );
   }
 }
