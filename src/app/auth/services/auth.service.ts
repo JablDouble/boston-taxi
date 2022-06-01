@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FirebaseAuthResponse, AuthDataUser } from 'src/app/auth/interfaces';
-import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
@@ -9,8 +9,6 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   providedIn: 'root',
 })
 export class AuthService {
-  error$: Subject<string> = new Subject<string>();
-
   get token() {
     return Cookie.get('token');
   }
@@ -31,10 +29,7 @@ export class AuthService {
           },
         },
       )
-      .pipe(
-        tap(this.setToken),
-        catchError((error) => this.handleError(error)),
-      );
+      .pipe(tap(this.setToken));
   }
 
   login(user: AuthDataUser): Observable<any> {
@@ -51,10 +46,7 @@ export class AuthService {
           },
         },
       )
-      .pipe(
-        tap(this.setToken),
-        catchError((error) => this.handleError(error)),
-      );
+      .pipe(tap(this.setToken));
   }
 
   logout() {
@@ -63,28 +55,6 @@ export class AuthService {
 
   isAuth(): boolean {
     return !!this.token;
-  }
-
-  handleError(error: HttpErrorResponse) {
-    console.error(error);
-    const { message } = error.error.error;
-
-    switch (message) {
-      case 'EMAIL_NOT_FOUND':
-        this.error$.next('User was not found');
-        break;
-      case 'INVALID_EMAIL':
-        this.error$.next('Invalid email');
-        break;
-      case 'INVALID_PASSWORD':
-        this.error$.next('Invalid password');
-        break;
-      default:
-        this.error$.next('Something went wrong');
-        break;
-    }
-
-    return throwError(() => new Error(message));
   }
 
   private setToken(response: FirebaseAuthResponse | null) {
