@@ -14,15 +14,4 @@ export interface Address {
     label: string
 }
 
-export interface Notification {
-    message: string,
-    type: NotificationType,
-}
-
-export enum NotificationType {
-    ERROR = 'error',
-    SUCCESS = 'success',
-    WARNING = 'warning'
-}
-
 export type InputTypes = 'checkbox' | 'file' | 'password' | 'radio' | 'text' | 'tel' | 'date' | 'month' | 'number';

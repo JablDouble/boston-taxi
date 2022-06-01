@@ -17,11 +17,12 @@ export class GlobalErrorHandler implements ErrorHandler {
       error = error.error.error;
     }
 
-    const errorMessage = error?.message || error;
+    error = error?.message || error;
+    const errorMessage = SERVER_ERRORS[error] || error || 'Something went wrong. Undefined error';
 
     this.ngZone.run(() => {
       this.notificationService.error(
-        SERVER_ERRORS[errorMessage] || errorMessage || 'Something went wrong. Undefined error'
+        errorMessage
       )
     });
   }

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LOADER_INTERCEPTOR_PROVIDER } from './common/interceptors/loader-interceptors.service';
 import { GLOBAL_ERROR_HANDLER_PROVIDER } from './common/errors/global-error-handler';
 import { NotifierModule } from 'angular-notifier';
-import { customNotifierOptions } from './common/options';
+import { customNotifierOptions } from './notifier-options';
 
 @NgModule({
   imports: [

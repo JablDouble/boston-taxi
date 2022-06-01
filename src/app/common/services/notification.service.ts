@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
-import { Notification, NotificationType } from '../interfaces';
+import { NotificationType } from '../errors/error-types';
 
 @Injectable({
     providedIn: 'root'
@@ -23,11 +23,9 @@ export class NotificationService {
     }
 
     private notify(message: string, type: NotificationType = NotificationType.SUCCESS) {
-        const notification: Notification = {
+        this.notifierService.show({
             message,
-            type,
-        }
-
-        this.notifierService.show(notification)
+            type
+        })
     }
 }
