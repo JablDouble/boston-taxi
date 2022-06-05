@@ -6,22 +6,24 @@ import { Profile } from 'src/app/common/interfaces';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-
-  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUserBySessionToken(): Observable<Profile> {
-    return this.http.post<any>(`${environment.GOOGLE_API_URL}/accounts:lookup`, {
-      idToken: Cookie.get('token')
-    }, {
-      params: {
-        key: environment.FIREBASE_API_KEY
-      }
-    }).pipe(
-      map((data) => data.users[0]),
-    )
+    return this.http
+      .post<any>(
+        `${environment.GOOGLE_API_URL}/accounts:lookup`,
+        {
+          idToken: Cookie.get('token'),
+        },
+        {
+          params: {
+            key: environment.FIREBASE_API_KEY,
+          },
+        },
+      )
+      .pipe(map((data) => data.users[0]));
   }
 }

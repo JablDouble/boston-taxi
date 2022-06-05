@@ -4,16 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddressInputComponent } from './address-input.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  declarations: [
-    AddressInputComponent
-  ],
-  exports: [
-    AddressInputComponent
-  ]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  declarations: [AddressInputComponent],
+  exports: [AddressInputComponent],
 })
-export class AddressInputModule { }
+export class AddressInputModule {}

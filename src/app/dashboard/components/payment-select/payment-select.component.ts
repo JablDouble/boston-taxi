@@ -5,15 +5,14 @@ import { PaymentService } from '../../services/payment.service';
 @Component({
   selector: 'app-payment-select',
   templateUrl: './payment-select.component.html',
-  styleUrls: ['./payment-select.component.scss']
+  styleUrls: ['./payment-select.component.scss'],
 })
 export class PaymentSelectComponent implements OnInit {
-
   @Output() onChangePaymentWay: EventEmitter<string> = new EventEmitter<string>();
 
   creditCards: CreditCard[];
 
-  constructor(private paymentService: PaymentService) { }
+  constructor(private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.paymentService.getAllCreditCards().subscribe((cards: CreditCard[]) => {
@@ -29,5 +28,4 @@ export class PaymentSelectComponent implements OnInit {
       this.onChangePaymentWay.emit(value);
     }
   }
-
 }

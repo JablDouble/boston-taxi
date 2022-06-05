@@ -7,11 +7,14 @@ import { MapService } from '../../services/map.service';
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
-
-  constructor(private mapService: MapService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private mapService: MapService,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     // this.mapService.getHomePosition().subscribe((address) => {
@@ -27,5 +30,4 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/auth', 'login']);
   }
-
 }

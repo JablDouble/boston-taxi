@@ -16,15 +16,10 @@ import { customNotifierOptions } from './notifier-options';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
   ],
-  declarations: [
-    AppComponent
-  ],
-  providers: [
-    LOADER_INTERCEPTOR_PROVIDER,
-    GLOBAL_ERROR_HANDLER_PROVIDER
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  providers: [LOADER_INTERCEPTOR_PROVIDER, GLOBAL_ERROR_HANDLER_PROVIDER],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

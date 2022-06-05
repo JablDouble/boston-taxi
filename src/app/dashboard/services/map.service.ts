@@ -7,12 +7,11 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MapService {
-
   pickupAddress$: BehaviorSubject<Address | null> = new BehaviorSubject<Address | null>(null);
+
   arrivalAddress$: BehaviorSubject<Address | null> = new BehaviorSubject<Address | null>(null);
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) {}
 
   public setPickupAddress(address: Address) {
     this.pickupAddress$.next(address);
@@ -37,24 +36,24 @@ export class MapService {
   }
 
   public getPositionByStreetName(streetName: string): Observable<Address[]> {
-    return this.http.get<PositionStackResponse>(`http://api.positionstack.com/v1/forward`, {
-      params: {
-        access_key: environment.POSTIONSTACK_API_KEY,
-        query: streetName
-      }
-    }).pipe(
-      map(response => response.data)
-    )
+    return this.http
+      .get<PositionStackResponse>(`${environment.POSTIONSTACK_API_URL}/forward`, {
+        params: {
+          access_key: environment.POSTIONSTACK_API_KEY,
+          query: streetName,
+        },
+      })
+      .pipe(map((response) => response.data));
   }
 
   public getPositionByLocation(lat: number, lng: number): Observable<Address[]> {
-    return this.http.get<PositionStackResponse>(`http://api.positionstack.com/v1/reverse`, {
-      params: {
-        access_key: environment.POSTIONSTACK_API_KEY,
-        query: `${lat}, ${lng}`
-      }
-    }).pipe(
-      map(response => response.data)
-    )
+    return this.http
+      .get<PositionStackResponse>(`${environment.POSTIONSTACK_API_URL}/reverse`, {
+        params: {
+          access_key: environment.POSTIONSTACK_API_KEY,
+          query: `${lat}, ${lng}`,
+        },
+      })
+      .pipe(map((response) => response.data));
   }
 }
