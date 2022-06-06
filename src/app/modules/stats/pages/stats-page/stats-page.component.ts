@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Trip } from '../../interfaces';
-import { TripService } from '../../services/trip.service';
+import { TripService } from 'src/app/core/services/trip.service';
+import { Trip } from 'src/app/data/schema/trip';
 
 @Component({
-  selector: 'app-stats-page',
+  selector: 'app-stats',
   templateUrl: './stats-page.component.html',
   styleUrls: ['./stats-page.component.scss'],
 })

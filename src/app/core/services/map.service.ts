@@ -3,7 +3,9 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { MapDataService } from 'src/app/data/service/map-data.service';
 import { Address } from 'src/app/shared/interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MapService {
   pickupAddress$: BehaviorSubject<Address | null> = new BehaviorSubject<Address | null>(null);
 

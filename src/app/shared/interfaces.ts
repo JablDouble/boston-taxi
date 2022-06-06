@@ -24,3 +24,16 @@ export type InputTypes =
   | 'date'
   | 'month'
   | 'number';
+
+export interface Point {
+  latitude: number;
+  longitude: number;
+}
+
+export interface CreditCard {
+  cardNumber: string;
+  cardHolder: string;
+  expirationDate: string;
+  cvv: number;
+  accountId: string;
+}

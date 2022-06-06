@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { PaymentDataService } from 'src/app/data/service/payment-data.service';
-import { CreditCard } from '../interfaces';
+import { CreditCard } from 'src/app/shared/interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PaymentService {
   constructor(private paymentDataService: PaymentDataService) {}
 
@@ -26,8 +28,8 @@ export class PaymentService {
     );
   }
 
-  addNewCreditCard(card: CreditCard): Observable<CreditCard> {
-    return this.paymentDataService.addNewCreditCard({
+  addCreditCard(card: CreditCard): Observable<CreditCard> {
+    return this.paymentDataService.addCreditCard({
       ...card,
       cardNumber: this.cardFormat(card.cardNumber),
     });

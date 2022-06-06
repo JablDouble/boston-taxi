@@ -9,6 +9,11 @@ import { GLOBAL_ERROR_HANDLER_PROVIDER } from './core/errors/global-error-handle
 import { NotifierModule } from 'angular-notifier';
 import { customNotifierOptions } from './notifier-options';
 import { AUTH_INTERCEPTOR_PROVIDER } from './modules/auth/interceptors/auth.interceptor';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 
 @NgModule({
   imports: [
@@ -18,8 +23,12 @@ import { AUTH_INTERCEPTOR_PROVIDER } from './modules/auth/interceptors/auth.inte
     ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(customNotifierOptions),
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAPS_API_KEY,
+      libraries: ['places'],
+    }),
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, DashboardLayoutComponent, HeaderComponent, NavbarComponent],
   providers: [
     LOADER_INTERCEPTOR_PROVIDER,
     GLOBAL_ERROR_HANDLER_PROVIDER,

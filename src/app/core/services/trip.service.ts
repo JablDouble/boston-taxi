@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { TripResponse } from 'src/app/data/schema/trip';
+import { Trip, TripResponse } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
-import { Trip } from '../interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TripService {
   constructor(private tripDataService: TripDataService) {}
 

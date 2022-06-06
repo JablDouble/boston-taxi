@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { concatAll, first, map } from 'rxjs';
-import { CarrierInfo, TaxiDriver, Vehicle } from '../../interfaces';
+import { TaxiDriver, Vehicle } from 'src/app/data/schema/trip';
+import { CarrierInfo } from '../../types';
 
 @Component({
   selector: 'app-driver-info',

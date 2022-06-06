@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreditCard } from '../../interfaces';
-import { PaymentService } from '../../services/payment.service';
+import { PaymentService } from 'src/app/core/services/payment.service';
+import { CreditCard } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-payment-manage',
@@ -42,7 +42,7 @@ export class PaymentManageComponent implements OnInit {
         ...this.creditCardForm.value,
       };
 
-      this.paymentService.addNewCreditCard(creditCard).subscribe(() => {
+      this.paymentService.addCreditCard(creditCard).subscribe(() => {
         this.isShowAddCardBlock = false;
         this.creditCardForm.reset();
       });

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MapService } from 'src/app/modules/dashboard/services/map.service';
+import { MapService } from 'src/app/core/services/map.service';
 import { Address } from '../../interfaces';
 
 @Component({

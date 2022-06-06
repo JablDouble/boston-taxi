@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { AuthDataUser, FirebaseAuthResponse } from 'src/app/modules/auth/interfaces';
+import { AuthDataService } from 'src/app/data/service/auth-data.service';
+import { AuthDataUser, FirebaseAuthResponse } from 'src/app/data/schema/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -13,40 +12,14 @@ export class AuthService {
     return Cookie.get('token');
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private authDataService: AuthDataService) {}
 
   register(user: AuthDataUser): Observable<any> {
-    return this.http
-      .post<FirebaseAuthResponse>(
-        `${environment.GOOGLE_API_URL}/accounts:signUp`,
-        {
-          ...user,
-          returnSecureToken: true,
-        },
-        {
-          params: {
-            key: environment.FIREBASE_API_KEY,
-          },
-        },
-      )
-      .pipe(tap(this.setToken));
+    return this.authDataService.register(user).pipe(tap(this.setToken));
   }
 
   login(user: AuthDataUser): Observable<any> {
-    return this.http
-      .post<FirebaseAuthResponse>(
-        `${environment.GOOGLE_API_URL}/accounts:signInWithPassword`,
-        {
-          ...user,
-          returnSecureToken: true,
-        },
-        {
-          params: {
-            key: environment.FIREBASE_API_KEY,
-          },
-        },
-      )
-      .pipe(tap(this.setToken));
+    return this.authDataService.login(user).pipe(tap(this.setToken));
   }
 
   logout() {
