@@ -66,16 +66,19 @@ table {
   width: 100%;
 }
 
-div::-webkit-scrollbar {
+div::-webkit-scrollbar,
+app-table::-webkit-scrollbar {
   width: 6px;
 }
 
-div::-webkit-scrollbar-track {
+div::-webkit-scrollbar-track,
+app-table::-webkit-scrollbar-track {
   background-color: #ccc;
   border-radius: 10px;
 }
 
-div::-webkit-scrollbar-thumb {
+div::-webkit-scrollbar-thumb,
+app-table::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgb(183, 183, 183);
 }
