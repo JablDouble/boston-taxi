@@ -1,51 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaymentService } from 'src/app/core/services/payment.service';
-import { CreditCard } from 'src/app/shared/interfaces';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-payment-manage',
   templateUrl: './payment-manage.component.html',
   styleUrls: ['./payment-manage.component.scss'],
 })
-export class PaymentManageComponent implements OnInit {
-  isShowAddCardBlock: boolean = false;
+export class PaymentManageComponent {
+  isAddCardSectionShown: boolean = false;
 
-  creditCardForm: FormGroup;
+  constructor() {}
 
-  constructor(private paymentService: PaymentService) {}
-
-  ngOnInit(): void {
-    this.creditCardForm = new FormGroup({
-      cardNumber: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(16),
-        Validators.maxLength(16),
-      ]),
-      cardHolder: new FormControl(null, [Validators.required]),
-      expirationDate: new FormControl(null, [Validators.required]),
-      cvv: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(3),
-      ]),
-    });
+  showCardBlockSection() {
+    this.isAddCardSectionShown = true;
   }
 
-  changeAddCardBlockStatus() {
-    this.isShowAddCardBlock = !this.isShowAddCardBlock;
-  }
-
-  addNewCreditCard() {
-    if (this.creditCardForm.valid) {
-      const creditCard: CreditCard = {
-        ...this.creditCardForm.value,
-      };
-
-      this.paymentService.addCreditCard(creditCard).subscribe(() => {
-        this.isShowAddCardBlock = false;
-        this.creditCardForm.reset();
-      });
-    }
+  hideCardBlockSection() {
+    this.isAddCardSectionShown = false;
   }
 }

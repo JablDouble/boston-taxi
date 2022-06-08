@@ -16,6 +16,6 @@ export class PaymentDataService {
   }
 
   addCreditCard(card: CreditCard): Observable<CreditCard> {
-    return this.http.post<CreditCard>(`${environment.FIREBASE_API_URL}cards.json`, card);
+    return this.http.post<CreditCard>(`${environment.FIREBASE_API_URL}/cards.json`, card);
   }
 }

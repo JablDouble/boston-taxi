@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { MapDataService } from 'src/app/data/service/map-data.service';
-import { Address } from 'src/app/shared/interfaces';
+import { Address, Coordinate } from 'src/app/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -37,9 +37,9 @@ export class MapService {
       .pipe(map((response) => response.data));
   }
 
-  public getPositionByLocation(lat: number, lng: number): Observable<Address[]> {
+  public getPositionByLocation(coordinate: Coordinate): Observable<Address[]> {
     return this.mapDataService
-      .getPositionByLocation(lat, lng)
+      .getPositionByLocation(coordinate)
       .pipe(map((response) => response.data));
   }
 }

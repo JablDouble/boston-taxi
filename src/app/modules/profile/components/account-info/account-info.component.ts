@@ -8,13 +8,13 @@ import { Profile } from 'src/app/shared/interfaces';
   styleUrls: ['./account-info.component.scss'],
 })
 export class AccountInfoComponent implements OnInit {
-  account: any;
+  profile: Profile;
 
   constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.profileService.getUserBySessionToken().subscribe((account: Profile) => {
-      this.account = account;
+    this.profileService.getProfile().subscribe((account: Profile) => {
+      this.profile = account;
     });
   }
 }

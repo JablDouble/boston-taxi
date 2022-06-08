@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthDataUser, FirebaseAuthResponse } from '../schema/auth';
+import { AuthDataUser, FirebaseAuthResponse, FirebaseProfileDTO } from '../schema/auth';
+import { CookieService } from './cookie.service';
 
 const initialParams = {
   key: environment.FIREBASE_API_KEY,
@@ -12,7 +13,7 @@ const initialParams = {
   providedIn: 'root',
 })
 export class AuthDataService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   register(user: AuthDataUser): Observable<FirebaseAuthResponse> {
     return this.http.post<FirebaseAuthResponse>(
@@ -29,12 +30,26 @@ export class AuthDataService {
     );
   }
 
-  login(user: AuthDataUser): Observable<any> {
+  login(user: AuthDataUser): Observable<FirebaseAuthResponse> {
     return this.http.post<FirebaseAuthResponse>(
       `${environment.GOOGLE_API_URL}/accounts:signInWithPassword`,
       {
         ...user,
         returnSecureToken: true,
+      },
+      {
+        params: {
+          ...initialParams,
+        },
+      },
+    );
+  }
+
+  getProfile(): Observable<FirebaseProfileDTO> {
+    return this.http.post<FirebaseProfileDTO>(
+      `${environment.GOOGLE_API_URL}/accounts:lookup`,
+      {
+        idToken: this.cookieService.get('token'),
       },
       {
         params: {

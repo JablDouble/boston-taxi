@@ -4,12 +4,3 @@ h4 {
     color: $text-color;
     margin-bottom: 20px;
 }
-
-.date-cvv-card-data {
-    display: flex;
-    gap: 40px;
-
-    app-input {
-        width: 50%;
-    }
-}

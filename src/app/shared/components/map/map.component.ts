@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { Address, Point } from 'src/app/shared/interfaces';
+import { Address, Coordinate } from 'src/app/shared/interfaces';
 import { MapService } from '../../../core/services/map.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
 
   arrivalAddress: Address;
 
-  taxiPoint: Point;
+  taxiPoint: Coordinate;
 
   zoom: number = 17;
 
@@ -33,10 +33,14 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapService.getPosition().subscribe((pos) => {
-      const currentLat = +pos.coords.latitude;
-      const currentLng = +pos.coords.longitude;
+      const { latitude, longitude } = pos.coords;
 
-      this.mapService.getPositionByLocation(currentLat, currentLng).subscribe((address) => {
+      const currentCoordinate: Coordinate = {
+        latitude,
+        longitude,
+      };
+
+      this.mapService.getPositionByLocation(currentCoordinate).subscribe((address) => {
         if (address[0]) {
           this.mapService.setPickupAddress(address[0]);
         }
