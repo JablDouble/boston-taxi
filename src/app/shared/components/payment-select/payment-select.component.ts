@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PaymentService } from 'src/app/core/services/payment.service';
-import { CreditCard } from '../../interfaces';
+import { CreditCard } from '../../types';
 
 @Component({
   selector: 'app-payment-select',

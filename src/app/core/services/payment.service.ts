@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { PaymentDataService } from 'src/app/data/service/payment-data.service';
-import { CreditCard } from 'src/app/shared/interfaces';
+import { CreditCard } from 'src/app/shared/types';
 import { NotificationService } from './notification.service';
 
 @Injectable({

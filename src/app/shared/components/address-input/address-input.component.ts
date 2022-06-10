@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MapService } from 'src/app/core/services/map.service';
-import { Address } from '../../interfaces';
+import { Address } from '../../types';
 
 @Component({
   selector: 'app-address-input',

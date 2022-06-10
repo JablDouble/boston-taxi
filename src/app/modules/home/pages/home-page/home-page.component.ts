@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { Trip } from 'src/app/data/schema/trip';
-import { Address } from 'src/app/shared/interfaces';
+import { Address } from 'src/app/shared/types';
 import { TripService } from 'src/app/core/services/trip.service';
 import { CarrierInfo } from '../../types';
 import { MapService } from 'src/app/core/services/map.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/core/services/profile.service';
-import { Profile } from 'src/app/shared/interfaces';
+import { Profile } from 'src/app/shared/types';
 
 @Component({
   selector: 'app-account-info',

@@ -1,4 +1,4 @@
-import { Profile } from 'src/app/shared/interfaces';
+import { Profile } from 'src/app/shared/types';
 
 export interface AuthDataUser {
   name: string;

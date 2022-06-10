@@ -1,4 +1,4 @@
-import { Address } from 'src/app/shared/interfaces';
+import { Address } from 'src/app/shared/types';
 
 export interface TripResponse {
   [key: string]: Trip;

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Coordinate } from 'src/app/shared/interfaces';
+import { Coordinate } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import { PositionStackResponse } from '../schema/map';
 

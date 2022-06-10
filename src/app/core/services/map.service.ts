@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { MapDataService } from 'src/app/data/service/map-data.service';
-import { Address, Coordinate } from 'src/app/shared/interfaces';
+import { Address, Coordinate } from 'src/app/shared/types';
 
 @Injectable({
   providedIn: 'root',

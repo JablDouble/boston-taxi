@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaymentService } from 'src/app/core/services/payment.service';
-import { CreditCard } from 'src/app/shared/interfaces';
+import { CreditCard } from 'src/app/shared/types';
 
 @Component({
   selector: 'app-card-section',
@@ -9,7 +9,7 @@ import { CreditCard } from 'src/app/shared/interfaces';
   styleUrls: ['./card-section.component.scss'],
 })
 export class CardSectionComponent {
-  @Output() submitted: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submitAddCard: EventEmitter<void> = new EventEmitter<void>();
 
   error: string;
 
@@ -37,7 +37,7 @@ export class CardSectionComponent {
       };
 
       this.paymentService.addCreditCard(creditCard).subscribe(() => {
-        this.submitted.emit();
+        this.submitAddCard.emit();
         this.creditCardForm.reset();
       });
     }

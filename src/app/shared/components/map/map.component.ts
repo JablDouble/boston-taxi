@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { Address, Coordinate } from 'src/app/shared/interfaces';
+import { Address, Coordinate } from 'src/app/shared/types';
 import { MapService } from '../../../core/services/map.service';
 
 @Component({

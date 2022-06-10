@@ -1,12 +1,12 @@
 <h4>Credit Card</h4>
 
-<div class="current-credit-card-block"
->
+<div class="current-credit-card-block">
   <div class="mb-5">
-    <app-payment-select *ngIf="!isAddCardSectionShown; else cardSection"></app-payment-select>
-    <ng-template #cardSection>
-      <app-card-section (submitted)="hideCardBlockSection()"></app-card-section>
-    </ng-template>
+    <app-payment-select *ngIf="!isAddCardSectionShown"></app-payment-select>
+    <app-card-section
+      *ngIf="isAddCardSectionShown"
+      (submitAddCard)="hideCardBlockSection()"
+    ></app-card-section>
   </div>
   <app-button [success]="true" (click)="showCardBlockSection()" *ngIf="!isAddCardSectionShown"
     >Add New Card</app-button

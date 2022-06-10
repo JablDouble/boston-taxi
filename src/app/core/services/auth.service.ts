@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthDataService } from 'src/app/data/service/auth-data.service';
 import { AuthDataUser, FirebaseAuthResponse } from 'src/app/data/schema/auth';
-import { CookieService } from 'src/app/data/service/cookie.service';
+import { AuthStorageService } from 'src/app/shared/utils/auth-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   get token() {
-    return this.cookieService.get('token');
+    return this.authStorageService.getAuthToken();
   }
 
-  constructor(private authDataService: AuthDataService, public cookieService: CookieService) {}
+  constructor(
+    private authDataService: AuthDataService,
+    public authStorageService: AuthStorageService,
+  ) {}
 
   register(user: AuthDataUser): Observable<FirebaseAuthResponse | null> {
     return this.authDataService.register(user).pipe(tap(this.setToken.bind(this)));
@@ -33,9 +36,9 @@ export class AuthService {
   private setToken(response: FirebaseAuthResponse | null) {
     if (response) {
       const { idToken } = response;
-      this.cookieService.set('token', idToken, 1);
+      this.authStorageService.updateAuthToken(idToken);
     } else {
-      this.cookieService.delete('token');
+      this.authStorageService.deleteAuthToken();
     }
   }
 }

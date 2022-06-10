@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AuthDataService } from 'src/app/data/service/auth-data.service';
-import { Profile } from 'src/app/shared/interfaces';
+import { Profile } from 'src/app/shared/types';
 
 @Injectable({
   providedIn: 'root',
