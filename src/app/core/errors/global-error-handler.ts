@@ -8,10 +8,12 @@ export class GlobalErrorHandler implements ErrorHandler {
   constructor(private notificationService: NotificationService, private ngZone: NgZone) {}
 
   handleError(error: any) {
+    console.error(error);
+
     if (!(error instanceof HttpErrorResponse)) {
-      error = error.rejection;
+      error = error?.rejection || error;
     } else {
-      error = error.error.error;
+      error = error?.error?.error || error;
     }
 
     error = error?.message || error;

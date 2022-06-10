@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Coordinate } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import { PositionStackResponse } from '../schema/map';
 
@@ -19,11 +20,11 @@ export class MapDataService {
     });
   }
 
-  public getPositionByLocation(lat: number, lng: number): Observable<PositionStackResponse> {
+  public getPositionByLocation(coordinate: Coordinate): Observable<PositionStackResponse> {
     return this.http.get<PositionStackResponse>(`${environment.POSTIONSTACK_API_URL}/reverse`, {
       params: {
         access_key: environment.POSTIONSTACK_API_KEY,
-        query: `${lat}, ${lng}`,
+        query: `${coordinate.latitude}, ${coordinate.longitude}`,
       },
     });
   }

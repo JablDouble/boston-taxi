@@ -1,29 +1,15 @@
 <h4>Credit Card</h4>
 
-<div class="current-credit-card-block" *ngIf="!isShowAddCardBlock">
-    <div class="mb-5">
-        <app-payment-select></app-payment-select>
-    </div>
-    <app-button [success]="true" (click)="changeAddCardBlockStatus()">Add New Card</app-button>
-</div>
-
-<div class="add-credit-card-block" *ngIf="isShowAddCardBlock">
-    <form [formGroup]="creditCardForm" (ngSubmit)="addNewCreditCard()">
-        <app-input label="Card Number" id="card-number" type="tel" placeholder="XXXX XXXX XXXX XXXX"
-            formControlName="cardNumber" [error]="creditCardForm.get('cardNumber')?.errors">
-        </app-input>
-        <app-input label="Card Holder" id="card-holder" formControlName="cardHolder" placeholder="Name Surname"
-            [error]="creditCardForm.get('cardHolder')?.errors"></app-input>
-        <div class="date-cvv-card-data">
-            <app-input label="MM/YY" id="expiration-date" type="month" formControlName="expirationDate"
-                placeholder="10/24" [error]="creditCardForm.get('expirationDate')?.errors"></app-input>
-            <app-input label="CVV" id="password" type="number" formControlName="cvv" placeholder="123"
-                [error]="creditCardForm.get('cvv')?.errors"></app-input>
-        </div>
-
-        <div class="mb-4">
-            <app-button [success]="true" type="submit" [disabledButton]="creditCardForm.invalid">Save</app-button>
-        </div>
-    </form>
-    <app-button (click)="changeAddCardBlockStatus()">Cancel</app-button>
+<div class="current-credit-card-block">
+  <div class="mb-5">
+    <app-payment-select *ngIf="!isAddCardSectionShown"></app-payment-select>
+    <app-card-section
+      *ngIf="isAddCardSectionShown"
+      (submitAddCard)="hideCardBlockSection()"
+    ></app-card-section>
+  </div>
+  <app-button [success]="true" (click)="showCardBlockSection()" *ngIf="!isAddCardSectionShown"
+    >Add New Card</app-button
+  >
+  <app-button (click)="hideCardBlockSection()" *ngIf="isAddCardSectionShown">Cancel</app-button>
 </div>

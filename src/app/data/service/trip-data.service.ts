@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { concatAll, first, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Trip, TripResponse } from '../schema/trip';
+import { TaxiDriver, Trip, TripResponse } from '../schema/trip';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,19 @@ export class TripDataService {
 
   getAllTrips(): Observable<TripResponse> {
     return this.http.get<TripResponse>(`${environment.FIREBASE_API_URL}/trips.json`);
+  }
+
+  findTaxiDriver(): Observable<TaxiDriver> {
+    return this.http
+      .get<TaxiDriver[]>('https://jsonplaceholder.typicode.com/users', {
+        params: {
+          _limit: 1,
+        },
+      })
+      .pipe(
+        concatAll(),
+        first(),
+        map((item) => ({ ...item, phone: item.phone.slice(0, -7) })), // fix phone number
+      );
   }
 }

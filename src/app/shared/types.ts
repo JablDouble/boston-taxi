@@ -25,7 +25,7 @@ export type InputTypes =
   | 'month'
   | 'number';
 
-export interface Point {
+export interface Coordinate {
   latitude: number;
   longitude: number;
 }

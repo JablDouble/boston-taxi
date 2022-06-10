@@ -19,8 +19,9 @@
   background-color: $primary-color;
 }
 
-::ng-deep th {
+::ng-deep td {
   color: $secondary-text-color;
   padding: 7px;
   text-align: left;
+  font-weight: bold;
 }

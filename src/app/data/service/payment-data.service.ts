@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreditCard } from 'src/app/shared/interfaces';
+import { CreditCard } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import { PaymentResponseDTO } from '../schema/payment';
 
@@ -16,6 +16,6 @@ export class PaymentDataService {
   }
 
   addCreditCard(card: CreditCard): Observable<CreditCard> {
-    return this.http.post<CreditCard>(`${environment.FIREBASE_API_URL}cards.json`, card);
+    return this.http.post<CreditCard>(`${environment.FIREBASE_API_URL}/cards.json`, card);
   }
 }

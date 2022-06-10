@@ -1,3 +1,3 @@
 <h3 class="mb-4">Account Information</h3>
-<app-data-record title="Email" [text]="account?.email"></app-data-record>
-<app-data-record title="Created at" [text]="(account?.createdAt | date:'mediumDate') || ''"></app-data-record>
+<app-data-record title="Email" [text]="profile?.email || 'not specified'"></app-data-record>
+<app-data-record title="Created at" [text]="(profile?.createdAt | date:'mediumDate') || ''"></app-data-record>

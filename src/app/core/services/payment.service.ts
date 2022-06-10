@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { PaymentDataService } from 'src/app/data/service/payment-data.service';
-import { CreditCard } from 'src/app/shared/interfaces';
+import { CreditCard } from 'src/app/shared/types';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  constructor(private paymentDataService: PaymentDataService) {}
+  constructor(
+    private paymentDataService: PaymentDataService,
+    private notificationService: NotificationService,
+  ) {}
 
-  private cardFormat(s: string) {
+  private formatCardNumber(s: string) {
     return s.toString().replace(/\d{4}(?=.)/g, '$& ');
   }
 
@@ -29,9 +33,11 @@ export class PaymentService {
   }
 
   addCreditCard(card: CreditCard): Observable<CreditCard> {
-    return this.paymentDataService.addCreditCard({
-      ...card,
-      cardNumber: this.cardFormat(card.cardNumber),
-    });
+    return this.paymentDataService
+      .addCreditCard({
+        ...card,
+        cardNumber: this.formatCardNumber(card.cardNumber),
+      })
+      .pipe(tap(() => this.notificationService.success('Card was added successfully')));
   }
 }

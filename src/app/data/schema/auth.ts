@@ -1,3 +1,5 @@
+import { Profile } from 'src/app/shared/types';
+
 export interface AuthDataUser {
   name: string;
   surname: string;
@@ -10,4 +12,9 @@ export interface FirebaseAuthResponse {
   expiresIn: string;
   email: string;
   localId: string;
+}
+
+export interface FirebaseProfileDTO {
+  kind: string;
+  users: Profile[];
 }

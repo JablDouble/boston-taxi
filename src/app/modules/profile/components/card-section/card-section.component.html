@@ -1,0 +1,40 @@
+<form [formGroup]="creditCardForm" (ngSubmit)="addCreditCard()">
+  <app-input
+    label="Card Number"
+    id="card-number"
+    type="tel"
+    placeholder="XXXX XXXX XXXX XXXX"
+    formControlName="cardNumber"
+    [error]="creditCardForm.get('cardNumber')?.errors"
+  >
+  </app-input>
+  <app-input
+    label="Card Holder"
+    id="card-holder"
+    formControlName="cardHolder"
+    placeholder="Name Surname"
+    [error]="creditCardForm.get('cardHolder')?.errors"
+  ></app-input>
+  <div class="date-cvv-card-data">
+    <app-input
+      label="MM/YY"
+      id="expiration-date"
+      type="month"
+      formControlName="expirationDate"
+      [error]="creditCardForm.get('expirationDate')?.errors"
+    ></app-input>
+    <app-input
+      label="CVV"
+      id="password"
+      type="number"
+      formControlName="cvv"
+      [error]="creditCardForm.get('cvv')?.errors"
+    ></app-input>
+  </div>
+  <small class="validation">{{ error }}</small>
+  <div class="mb-4">
+    <app-button [success]="true" type="submit" [disabledButton]="creditCardForm.invalid"
+      >Save</app-button
+    >
+  </div>
+</form>

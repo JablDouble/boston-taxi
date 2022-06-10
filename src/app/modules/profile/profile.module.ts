@@ -13,9 +13,15 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataRecordModule } from 'src/app/shared/components/data-record/data-record.module';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { CardSectionComponent } from './components/card-section/card-section.component';
 
 @NgModule({
-  declarations: [ProfilePageComponent, AccountInfoComponent, PaymentManageComponent],
+  declarations: [
+    ProfilePageComponent,
+    AccountInfoComponent,
+    PaymentManageComponent,
+    CardSectionComponent,
+  ],
   imports: [
     RouterModule.forChild([
       { path: '', component: ProfilePageComponent, canActivate: [AuthGuard] },
