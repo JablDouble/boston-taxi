@@ -1,0 +1,23 @@
+<h4 class="mb-5">Where We go?</h4>
+<div class="mb-3">
+  <app-address-input
+    placeholder="Pickup Address"
+    iconUrl="/assets/img/home.svg"
+    (onChangeAddress)="setPickupAddress($event)"
+    [value]="tripService.pickupAddress?.label || ''"
+  >
+  </app-address-input>
+</div>
+<div class="mb-3">
+  <app-address-input
+    placeholder="Arrival Address"
+    iconUrl="/assets/img/arrival.svg"
+    (onChangeAddress)="setArrivalAddress($event)"
+    [value]="tripService.arrivalAddress?.label || ''"
+  ></app-address-input>
+</div>
+<app-button
+  (click)="callTheTaxi()"
+  *ngIf="!!tripService.pickupAddress && !!tripService.arrivalAddress"
+  >Call The Taxi</app-button
+>

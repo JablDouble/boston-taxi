@@ -10,6 +10,7 @@ export const environment = {
   FIREBASE_API_KEY: 'AIzaSyCj4KhdcVFLm7ccf3ifmHVfCjYt6fkJfgU',
   FIREBASE_API_URL: 'https://bostontaxi-default-rtdb.europe-west1.firebasedatabase.app/',
   GOOGLE_API_URL: 'https://identitytoolkit.googleapis.com/v1',
+  JSON_PLACEHOLDER_API_URL: 'https://jsonplaceholder.typicode.com',
 };
 
 /*

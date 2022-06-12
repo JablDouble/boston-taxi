@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Address, Coordinate } from 'src/app/shared/types';
 import { MapService } from '../../../core/services/map.service';
 
@@ -9,15 +8,11 @@ import { MapService } from '../../../core/services/map.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  @Input() location: Address;
+  @Input() startAddress: Address | null;
 
-  @Output() onDetermineCurrentLocation: EventEmitter<Address> = new EventEmitter();
+  @Input() endAddress: Address | null;
 
-  pickupAddress: Address;
-
-  arrivalAddress: Address;
-
-  taxiPoint: Coordinate;
+  @Input() taxiPoint: Coordinate | null;
 
   zoom: number = 17;
 
@@ -31,39 +26,5 @@ export class MapComponent implements OnInit {
 
   constructor(public mapService: MapService) {}
 
-  ngOnInit(): void {
-    this.mapService.getPosition().subscribe((pos) => {
-      const { latitude, longitude } = pos.coords;
-
-      const currentCoordinate: Coordinate = {
-        latitude,
-        longitude,
-      };
-
-      this.mapService.getPositionByLocation(currentCoordinate).subscribe((address) => {
-        if (address[0]) {
-          this.mapService.setPickupAddress(address[0]);
-        }
-      }); // to get name of street by coordinates
-    });
-
-    combineLatest([this.mapService.pickupAddress$, this.mapService.arrivalAddress$]).subscribe(
-      ([pickupAddress, arrivalAddress]) => {
-        if (pickupAddress) {
-          this.pickupAddress = pickupAddress;
-        }
-
-        if (arrivalAddress) {
-          this.arrivalAddress = arrivalAddress;
-        }
-
-        if (pickupAddress && arrivalAddress) {
-          this.taxiPoint = {
-            latitude: pickupAddress.latitude - 0.00045840645,
-            longitude: pickupAddress.longitude - 0.0001481538,
-          };
-        }
-      },
-    );
-  }
+  ngOnInit(): void {}
 }
