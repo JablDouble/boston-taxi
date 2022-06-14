@@ -11,6 +11,7 @@ export class TripDataService {
   constructor(private http: HttpClient) {}
 
   createNewTrip(trip: Trip): Observable<string> {
+    console.log(environment.FIREBASE_API_URL);
     return this.http.post<string>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
   }
 
@@ -20,7 +21,7 @@ export class TripDataService {
 
   findTaxiDriver(): Observable<TaxiDriver> {
     return this.http
-      .get<TaxiDriver[]>('https://jsonplaceholder.typicode.com/users', {
+      .get<TaxiDriver[]>(`${environment.JSON_PLACEHOLDER_API_URL}/users`, {
         params: {
           _limit: 1,
         },
@@ -28,7 +29,15 @@ export class TripDataService {
       .pipe(
         concatAll(),
         first(),
-        map((item) => ({ ...item, phone: item.phone.slice(0, -7) })), // fix phone number
+        map((item) => ({
+          ...item,
+          phone: item.phone.slice(0, -7), // fix phone number
+          vehicle: {
+            brand: 'Chevrolet',
+            model: 'Cruze',
+            plateNumber: '7139PI-7',
+          }, // mock vehicle data
+        })),
       );
   }
 }

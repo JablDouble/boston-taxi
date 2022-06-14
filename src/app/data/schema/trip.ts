@@ -1,12 +1,18 @@
-import { Address } from 'src/app/shared/types';
+import { Address, Coordinate } from 'src/app/shared/types';
 
 export interface TripResponse {
   [key: string]: Trip;
 }
 
+export interface Taxi {
+  taxiDriver: TaxiDriver;
+  position: Coordinate;
+}
+
 export interface TaxiDriver {
   name: string;
   phone: string;
+  vehicle: Vehicle;
 }
 
 export interface Vehicle {
@@ -17,10 +23,9 @@ export interface Vehicle {
 
 export interface Trip {
   time: Date;
-  vehicle: Vehicle;
   pickupAddress: Address;
   arrivalAddress: Address;
   taxiDriver: TaxiDriver;
   amount: number;
-  paymentWay: string;
+  paymentMethod: string;
 }

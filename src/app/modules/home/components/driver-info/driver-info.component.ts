@@ -1,48 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { concatAll, first, map } from 'rxjs';
-import { TaxiDriver, Vehicle } from 'src/app/data/schema/trip';
-import { CarrierInfo } from '../../types';
+import { Component } from '@angular/core';
+import { TripService } from 'src/app/core/services/trip.service';
+import { TaxiDriver } from 'src/app/data/schema/trip';
 
 @Component({
   selector: 'app-driver-info',
   templateUrl: './driver-info.component.html',
   styleUrls: ['./driver-info.component.scss'],
 })
-export class DriverInfoComponent implements OnInit {
-  @Output() onSetCarrierInfo: EventEmitter<CarrierInfo> = new EventEmitter<CarrierInfo>();
-
+export class DriverInfoComponent {
   taxiDriver: TaxiDriver;
 
-  vehicle: Vehicle;
-
-  constructor(public http: HttpClient) {}
-
-  ngOnInit(): void {
-    this.http
-      .get<TaxiDriver[]>('https://jsonplaceholder.typicode.com/users', {
-        params: {
-          _limit: 1,
-        },
-      })
-      .pipe(
-        concatAll(),
-        first(),
-        map((item) => ({ ...item, phone: item.phone.slice(0, -7) })), // fix phone number
-      )
-      .subscribe((taxiDriver: TaxiDriver) => {
-        this.taxiDriver = taxiDriver;
-
-        this.vehicle = {
-          brand: 'Chevrolet',
-          model: 'Cruze',
-          plateNumber: '7139PI-7',
-        };
-
-        this.onSetCarrierInfo.emit({
-          taxiDriver: this.taxiDriver,
-          vehicle: this.vehicle,
-        });
-      });
+  constructor(public tripService: TripService) {
+    this.taxiDriver = this.tripService.taxi.taxiDriver;
   }
 }

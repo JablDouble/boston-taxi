@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
-  @Input() success: boolean = false;
+  @Input() success: boolean = true;
 
   @Input() disabledButton: boolean = false;
 

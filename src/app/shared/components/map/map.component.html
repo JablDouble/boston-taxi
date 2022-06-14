@@ -1,10 +1,25 @@
-<agm-map [latitude]="location?.latitude ||pickupAddress?.latitude || 53.9"
-    [longitude]="location?.longitude ||pickupAddress?.longitude || 27.5" [zoom]="zoom">
-    <agm-marker [latitude]="location?.latitude || pickupAddress?.latitude || 53.9"
-        [longitude]="location?.longitude || pickupAddress?.longitude || 27.5"></agm-marker>
-    <agm-marker *ngIf="arrivalAddress" [latitude]="arrivalAddress.latitude" [longitude]="arrivalAddress.longitude">
-    </agm-marker>
-    <agm-marker *ngIf="taxiPoint" [latitude]="taxiPoint.latitude" [longitude]="taxiPoint.longitude" iconHeight="20"
-        iconWidth="20" [iconUrl]="$any(iconTaxi)">
-    </agm-marker>
+<agm-map
+  [latitude]="startAddress?.latitude || 53.9"
+  [longitude]="startAddress?.longitude || 27.5"
+  [zoom]="zoom"
+>
+  <agm-marker
+    [latitude]="startAddress?.latitude || 53.9"
+    [longitude]="startAddress?.longitude || 27.5"
+  ></agm-marker>
+  <agm-marker
+    *ngIf="endAddress"
+    [latitude]="endAddress.latitude"
+    [longitude]="endAddress.longitude"
+  >
+  </agm-marker>
+  <agm-marker
+    *ngIf="taxiPoint"
+    [latitude]="taxiPoint.latitude"
+    [longitude]="taxiPoint.longitude"
+    iconHeight="20"
+    iconWidth="20"
+    [iconUrl]="$any(iconTaxi)"
+  >
+  </agm-marker>
 </agm-map>

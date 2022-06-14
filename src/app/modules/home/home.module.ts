@@ -9,9 +9,11 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { DriverInfoComponent } from './components/driver-info/driver-info.component';
 import { DataRecordModule } from 'src/app/shared/components/data-record/data-record.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { RouteInfoComponent } from './components/route-info/route-info.component';
+import { ButtonModule } from 'src/app/shared/components/button/button.module';
 
 @NgModule({
-  declarations: [HomePageComponent, DriverInfoComponent],
+  declarations: [HomePageComponent, DriverInfoComponent, RouteInfoComponent],
   imports: [
     RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),
     CommonModule,
@@ -20,6 +22,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     PaymentSelectModule,
     CardModule,
     DataRecordModule,
+    ButtonModule,
   ],
   exports: [RouterModule],
 })
