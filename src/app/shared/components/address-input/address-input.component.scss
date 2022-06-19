@@ -22,7 +22,7 @@
     padding: 15px 30px 15px 50px;
 
     border-radius: 15px;
-    border: none;
+    border: 1px solid $dark-primary-color;
     background-color: $primary-color;
 
     color: $text-color;
@@ -33,30 +33,35 @@
   }
 
   .address-list {
-      background-color: $primary-color;
-      padding: 10px 20px;
-      border-radius: 15px;
-      max-height: 250px;
-      overflow-y: auto;
-      position: absolute;
-      z-index: 10;
+    width: 100%;
+    background-color: $primary-color;
+    padding: 10px 20px;
+    border-radius: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 10;
 
-      .address {
-          border-bottom: 1px solid rgb(232, 232, 232);
-          padding: 10px 0;
-          cursor: pointer;
+    .address {
+      border-bottom: 1px solid rgb(232, 232, 232);
+      padding: 10px 0;
+      cursor: pointer;
 
-          h4 {
-              color: $text-color;
-          }
-
-          p {
-              color: $secondary-text-color;
-          }
-
-          &:hover {
-              opacity: 0.7;
-          }
+      h4 {
+        color: $text-color;
       }
+
+      p {
+        color: $secondary-text-color;
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .validation {
+    margin-left: 15px;
   }
 }

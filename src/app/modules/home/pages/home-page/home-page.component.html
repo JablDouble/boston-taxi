@@ -1,21 +1,13 @@
 <div class="home">
   <div class="home-cards">
-    <app-card *ngIf="!tripService?.taxi?.position">
-      <app-route-info></app-route-info>
-    </app-card>
-    <app-card *ngIf="tripService?.taxi?.position">
-      <app-driver-info></app-driver-info>
-    </app-card>
-    <app-card>
-      <h4 class="mb-2">Type Of Payment</h4>
-      <app-payment-select></app-payment-select>
-    </app-card>
+    <app-order-taxi-form *ngIf="!tripService?.taxi?.position && !tripService.searching"></app-order-taxi-form>
+    <app-driver-info *ngIf="tripService?.taxi?.position"></app-driver-info>
+    <app-taxi-searching-screen *ngIf="tripService.searching"></app-taxi-searching-screen>
   </div>
-  <div>
-    <app-map
-      [startAddress]="tripService.pickupAddress"
-      [endAddress]="tripService.arrivalAddress"
-      [taxiPoint]="tripService?.taxi?.position || null"
-    ></app-map>
-  </div>
+  <app-map
+    class="order-taxi-map"
+    [startAddress]="tripService.pickupAddress"
+    [endAddress]="tripService.arrivalAddress"
+    [taxiPoint]="tripService?.taxi?.position || null"
+  ></app-map>
 </div>

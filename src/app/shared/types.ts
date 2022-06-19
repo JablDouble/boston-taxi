@@ -37,3 +37,9 @@ export interface CreditCard {
   cvv: number;
   accountId: string;
 }
+
+export type ElementSize = 'small' | 'medium' | 'big';
+
+export enum PaymentMethod {
+  Cash = 'Cash',
+}

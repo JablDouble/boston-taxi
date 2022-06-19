@@ -16,6 +16,8 @@ export class MapComponent implements OnInit {
 
   zoom: number = 17;
 
+  maxZoom: number = 17;
+
   iconTaxi = {
     url: 'https://flomaster.club/uploads/posts/2021-11/thumbs/1635854509_54-flomaster-club-p-narisovannaya-mashina-sverkhu-krasivii-ris-74.png',
     scaledSize: {

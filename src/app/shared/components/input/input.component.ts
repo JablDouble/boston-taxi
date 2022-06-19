@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputTypes } from '../../types';
 
@@ -30,8 +30,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   onChange: any;
 
   onTouch: any;
-
-  @ViewChild('input') inputRef: ElementRef;
 
   constructor() {}
 

@@ -11,6 +11,6 @@ export class DriverInfoComponent {
   taxiDriver: TaxiDriver;
 
   constructor(public tripService: TripService) {
-    this.taxiDriver = this.tripService.taxi.taxiDriver;
+    this.taxiDriver = this.tripService?.taxi?.taxiDriver;
   }
 }

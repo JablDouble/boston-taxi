@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, ValidationErrors } from '@angular/forms';
 import { MapService } from 'src/app/core/services/map.service';
 import { Address } from '../../types';
 
@@ -14,15 +15,19 @@ export class AddressInputComponent implements OnInit {
 
   @Input() iconUrl: string;
 
-  @Output() onChangeAddress: EventEmitter<Address> = new EventEmitter();
+  @Output() changeAddress: EventEmitter<Address> = new EventEmitter();
 
   addresses: Address[] = [];
 
   @Input() value: string = '';
 
+  @Input() errors?: ValidationErrors | null | undefined;
+
   selectedAddress: Address;
 
   isOpenAddressesList: boolean = false;
+
+  control = new FormControl();
 
   constructor(private mapService: MapService) {}
 
@@ -41,7 +46,7 @@ export class AddressInputComponent implements OnInit {
       this.selectedAddress = selectedAddress;
       this.isOpenAddressesList = false;
       this.value = selectedAddress.label;
-      this.onChangeAddress.emit(selectedAddress);
+      this.changeAddress.emit(selectedAddress);
     }
   }
 }

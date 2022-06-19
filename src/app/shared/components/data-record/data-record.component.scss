@@ -1,8 +1,23 @@
 @import 'variables';
 
-.data-record {
+.record-wrap {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 5px;
 
-  margin-bottom: 15px;
+  p {
+    color: $secondary-text-color;
+    font-weight: bold;
+  }
+
+  .record-img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.data-record {
 
   p {
     color: $secondary-text-color;

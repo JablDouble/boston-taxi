@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { LogoModule } from './shared/components/logo/logo.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
       apiKey: environment.GOOGLE_MAPS_API_KEY,
       libraries: ['places'],
     }),
+    LogoModule,
   ],
   declarations: [AppComponent, DashboardLayoutComponent, HeaderComponent, NavbarComponent],
   providers: [

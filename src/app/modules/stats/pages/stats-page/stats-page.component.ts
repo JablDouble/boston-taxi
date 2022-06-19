@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/core/services/trip.service';
 import { Trip } from 'src/app/data/schema/trip';
+import { PaymentMethod } from 'src/app/shared/types';
 
 @Component({
   selector: 'app-stats',
@@ -13,11 +14,14 @@ export class StatsPageComponent implements OnInit {
     'Vehicle',
     'Pickup Address',
     'Arrival Address',
+    'Tariff',
     'Amount',
-    'Way Of Payment',
+    'Method Of Payment',
   ];
 
   trips: Trip[] = [];
+
+  public PaymentMethod = PaymentMethod;
 
   constructor(private tripService: TripService) {}
 

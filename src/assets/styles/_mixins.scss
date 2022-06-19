@@ -1,5 +1,11 @@
-@mixin shadow($percent) {
-    -webkit-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent);
-    -moz-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent);
-    box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent);
+@mixin shadow($percent, $inset: false) {
+    -webkit-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent) if($inset == true, inset, null);
+    -moz-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent) if($inset == true, inset, null);
+    box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $percent) if($inset == true, inset, null);
+}
+
+@mixin internalExternalShadow($externalPercent, $internalPercent) {
+    -webkit-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $externalPercent), 0px 28px 35px 0px rgba(34, 60, 80, $internalPercent) inset;
+    -moz-box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $externalPercent), 0px 28px 35px 0px rgba(34, 60, 80, $internalPercent) inset;
+    box-shadow: 0px 28px 35px 0px rgba(34, 60, 80, $externalPercent), 0px 28px 35px 0px rgba(34, 60, 80, $internalPercent) inset;
 }

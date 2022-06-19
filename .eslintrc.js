@@ -18,6 +18,7 @@ module.exports = {
                 "import/no-unresolved": "off",
                 "@typescript-eslint/no-useless-constructor": "off",
                 "@typescript-eslint/no-empty-function": "off",
+                "@angular-eslint/no-output-native": "off",
                 "prettier/prettier": ["error", {
                     "endOfLine": "auto"
                 }

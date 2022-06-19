@@ -4,7 +4,7 @@
         </app-input>
         <app-input label="Password" id="password" type="password" formControlName="password"
             [error]="loginForm?.get('password')?.errors"></app-input>
-        <app-button [success]="true" [disabledButton]="loginForm.invalid" type="submit">Sign In</app-button>
+        <app-button [success]="true" [disabled]="loginForm.invalid" type="submit">Sign In</app-button>
     </form>
     <p class="text-center">Are you new User? <a routerLink="/auth/register">Sign Up</a></p>
 </app-auth-card>

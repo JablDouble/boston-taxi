@@ -8,8 +8,6 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class PaymentService {
-  paymentMethod: string = 'cash';
-
   constructor(
     private paymentDataService: PaymentDataService,
     private notificationService: NotificationService,
@@ -41,9 +39,5 @@ export class PaymentService {
         cardNumber: this.formatCardNumber(card.cardNumber),
       })
       .pipe(tap(() => this.notificationService.success('Card was added successfully')));
-  }
-
-  changePaymentMethod(paymentMethod: string) {
-    this.paymentMethod = paymentMethod;
   }
 }

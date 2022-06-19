@@ -1,6 +1,6 @@
 <div class="profile">
     <app-card>
-        <app-account-info></app-account-info>
+        <app-account-info class="mb-5"></app-account-info>
         <app-button [success]="true" (click)="logout()">
             Sign out
         </app-button>
@@ -8,7 +8,7 @@
     <app-card [isInDevelopment]="true">
         <div class="home-address">
             <app-address-input placeholder="Home Address" iconUrl="/assets/img/home.svg" class="mb-5"
-                (onChangeAddress)="setHomeAddress($event)"></app-address-input>
+                (changeAddress)="setHomeAddress($event)"></app-address-input>
             <app-map></app-map>
         </div>
     </app-card>

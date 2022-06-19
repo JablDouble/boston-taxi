@@ -10,6 +10,8 @@ export class DataRecordComponent implements OnInit {
 
   @Input() text: string = '';
 
+  @Input() img: string;
+
   constructor() {}
 
   ngOnInit(): void {}
