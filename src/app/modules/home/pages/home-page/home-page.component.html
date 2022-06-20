@@ -10,6 +10,7 @@
       <h4 class="mb-2">Type Of Payment</h4>
       <app-payment-select></app-payment-select>
     </app-card>
+    <app-taxi-searching-screen *ngIf="tripService.isSearching"></app-taxi-searching-screen>
   </div>
   <div>
     <app-map

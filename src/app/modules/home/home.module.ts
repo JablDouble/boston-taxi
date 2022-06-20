@@ -11,9 +11,16 @@ import { DataRecordModule } from 'src/app/shared/components/data-record/data-rec
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { RouteInfoComponent } from './components/route-info/route-info.component';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
+import { TaxiSearchingScreenComponent } from './components/taxi-searching-screen/taxi-searching-screen.component';
+import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
 
 @NgModule({
-  declarations: [HomePageComponent, DriverInfoComponent, RouteInfoComponent],
+  declarations: [
+    HomePageComponent,
+    DriverInfoComponent,
+    RouteInfoComponent,
+    TaxiSearchingScreenComponent,
+  ],
   imports: [
     RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),
     CommonModule,
@@ -23,6 +30,7 @@ import { ButtonModule } from 'src/app/shared/components/button/button.module';
     CardModule,
     DataRecordModule,
     ButtonModule,
+    PulseModule,
   ],
   exports: [RouterModule],
 })
