@@ -13,6 +13,8 @@ import { RouteInfoComponent } from './components/route-info/route-info.component
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
 import { TaxiSearchingScreenComponent } from './components/taxi-searching-screen/taxi-searching-screen.component';
 import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
+import { DelimiterModule } from 'src/app/shared/components/delimiter/delimiter.module';
+import { IconButtonModule } from 'src/app/shared/components/icon-button/icon-button.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
     DataRecordModule,
     ButtonModule,
     PulseModule,
+    DelimiterModule,
+    IconButtonModule,
   ],
   exports: [RouterModule],
 })

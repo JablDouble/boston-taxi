@@ -1,8 +1,13 @@
-<div class="data-record">
+<div class="record-wrap">
+  <div class="text-center" *ngIf="!!img">
+    <img class="record-img icon active-icon" [src]="img" />
+  </div>
+  <div class="data-record">
     <h4>
-        {{ title }}
+      {{ title }}
     </h4>
     <p>
-        {{ text }}
+      {{ text }}
     </p>
+  </div>
 </div>

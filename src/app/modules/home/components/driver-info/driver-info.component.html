@@ -1,26 +1,30 @@
-<h4 class="mb-2">Will come to you</h4>
-<div class="account-info">
-  <div class="text-center">
-    <img src="/assets/img/user.png" />
-  </div>
+<app-card>
+  <h3>Will come to you:</h3>
+  <app-delimiter></app-delimiter>
   <app-data-record
-    *ngIf="tripService.taxi.taxiDriver"
-    [title]="tripService.taxi.taxiDriver.name"
-    [text]="tripService.taxi.taxiDriver.phone"
+    [title]="taxiDriver?.name || 'Unknown person'"
+    [text]="taxiDriver?.phone || 'Not specified'"
+    img="/assets/img/person.svg"
   ></app-data-record>
-</div>
-<div class="car-info">
-  <div class="text-center">
-    <img class="active-icon" src="/assets/img/car.svg" />
-  </div>
+  <app-delimiter></app-delimiter>
   <app-data-record
-    [title]="taxiDriver.vehicle?.brand + ' ' + taxiDriver.vehicle?.model"
-    [text]="taxiDriver.vehicle?.plateNumber || ''"
+    [title]="getVehicleInfoByTaxiDriver(taxiDriver) || 'Unknown Brand'"
+    [text]="taxiDriver?.vehicle?.plateNumber || 'Unknown Number'"
+    img="/assets/img/car.svg"
   ></app-data-record>
-</div>
-<div class="time-info">
-  <div class="text-center">
-    <img src="/assets/img/time.svg" class="icon" />
+  <app-delimiter></app-delimiter>
+  <div class="additional-info-section">
+    <div class="connection-section">
+      <a [href]="'tel: ' + taxiDriver?.phone" *ngIf="taxiDriver?.phone">
+        <app-icon-button img="/assets/img/phone.svg"></app-icon-button>
+      </a>
+      <app-icon-button img="/assets/img/chat.svg"></app-icon-button>
+    </div>
+    <div class="time-info">
+      <div class="text-center">
+        <img src="/assets/img/time.svg" class="icon" />
+      </div>
+      <p class="time">7 min</p>
+    </div>
   </div>
-  <p>7 min</p>
-</div>
+</app-card>
