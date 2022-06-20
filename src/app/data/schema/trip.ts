@@ -21,11 +21,22 @@ export interface Vehicle {
   plateNumber: string;
 }
 
-export interface Trip {
-  time: Date;
+export enum Tariff {
+  Economy = 'economy',
+  Standart = 'standart',
+  Business = 'business',
+  Children = 'children',
+}
+
+export interface TaxiOrder {
   pickupAddress: Address;
   arrivalAddress: Address;
+  paymentMethod: string;
+  tariff: Tariff;
+}
+
+export interface Trip extends TaxiOrder {
+  time: Date;
   taxiDriver: TaxiDriver;
   amount: number;
-  paymentMethod: string;
 }

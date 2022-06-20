@@ -37,3 +37,9 @@ export interface CreditCard {
   cvv: number;
   accountId: string;
 }
+
+export enum PaymentMethod {
+  Cash = 'Cash',
+}
+
+export type ButtonType = 'button' | 'reset' | 'submit';

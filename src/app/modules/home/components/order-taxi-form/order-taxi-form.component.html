@@ -1,0 +1,29 @@
+<app-card>
+  <form [formGroup]="orderTaxiForm" (submit)="callTheTaxi()">
+    <div class="mb-5">
+      <app-address-input
+        placeholder="Pickup Address"
+        iconUrl="/assets/img/home.svg"
+        (changeAddress)="setPickupAddress($event)"
+        [value]="orderTaxiForm.get('pickupAddress')?.value?.label"
+        [errors]="orderTaxiForm.get('pickupAddress')?.errors"
+      >
+      </app-address-input>
+    </div>
+    <div>
+      <app-address-input
+        placeholder="Arrival Address"
+        iconUrl="/assets/img/arrival.svg"
+        (changeAddress)="setArrivalAddress($event)"
+        [value]="orderTaxiForm.get('arrivalAddress')?.value?.label"
+        [errors]="orderTaxiForm.get('arrivalAddress')?.errors"
+      ></app-address-input>
+    </div>
+    <app-delimiter></app-delimiter>
+    <app-taxi-type-toggle-group (changeTariff)="onSetTariff($event)"></app-taxi-type-toggle-group>
+    <app-delimiter></app-delimiter>
+    <app-payment-select formControlName="paymentMethod"></app-payment-select>
+    <app-delimiter></app-delimiter>
+    <app-button type="submit" [isDisabled]="orderTaxiForm.invalid" type="submit">Call</app-button>
+  </form>
+</app-card>
