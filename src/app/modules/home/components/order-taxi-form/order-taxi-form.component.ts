@@ -18,6 +18,32 @@ export class OrderTaxiFormComponent {
   });
 
   constructor(private mapService: MapService, public tripService: TripService) {
+    this.generateInitialAddress();
+
+    this.orderTaxiForm.controls['pickupAddress'].valueChanges.subscribe(
+      (pickupAddress: Address) => {
+        this.mapService.setStartPointOfPath(pickupAddress);
+      },
+    );
+
+    this.orderTaxiForm.controls['arrivalAddress'].valueChanges.subscribe(
+      (pickupAddress: Address) => {
+        this.mapService.setEndPointOfPath(pickupAddress);
+      },
+    );
+  }
+
+  callTheTaxi() {
+    if (this.orderTaxiForm.value && this.orderTaxiForm.valid) {
+      this.tripService.createNewTrip(this.orderTaxiForm.value);
+    }
+  }
+
+  onSetTariff(value: string) {
+    this.orderTaxiForm.get('tariff')?.setValue(value);
+  }
+
+  generateInitialAddress() {
     this.mapService.getPosition().subscribe((pos) => {
       const { latitude, longitude } = pos.coords;
 
@@ -28,29 +54,9 @@ export class OrderTaxiFormComponent {
 
       this.mapService.getPositionByLocation(currentCoordinate).subscribe((address) => {
         if (address[0]) {
-          this.setPickupAddress(address[0]);
+          this.orderTaxiForm.get('pickupAddress')?.setValue(address[0]);
         }
       }); // to get name of street by coordinates
     });
-  }
-
-  callTheTaxi() {
-    if (this.orderTaxiForm.value && this.orderTaxiForm.valid) {
-      this.tripService.createNewTrip(this.orderTaxiForm.value);
-    }
-  }
-
-  setPickupAddress(address: Address) {
-    this.orderTaxiForm.get('pickupAddress')?.setValue(address);
-    this.tripService.setPickupAddress(address); // to change pickup position on the map
-  }
-
-  setArrivalAddress(address: Address) {
-    this.orderTaxiForm.get('arrivalAddress')?.setValue(address);
-    this.tripService.setArrivalAddress(address); // to show destination between two addresses
-  }
-
-  onSetTariff(value: string) {
-    this.orderTaxiForm.get('tariff')?.setValue(value);
   }
 }

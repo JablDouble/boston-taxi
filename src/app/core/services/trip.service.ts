@@ -10,10 +10,6 @@ import { PaymentService } from './payment.service';
   providedIn: 'root',
 })
 export class TripService {
-  pickupAddress: Address;
-
-  arrivalAddress: Address;
-
   taxi: Taxi;
 
   isSearching: boolean;
@@ -65,14 +61,6 @@ export class TripService {
 
   private findTaxiDriver() {
     return this.tripDataService.findTaxiDriver();
-  }
-
-  public setPickupAddress(address: Address) {
-    this.pickupAddress = address;
-  }
-
-  public setArrivalAddress(address: Address) {
-    this.arrivalAddress = address;
   }
 
   private calculateCostOfOrder(tariff: Tariff) {

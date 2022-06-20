@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { Component, forwardRef, Input } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MapService } from 'src/app/core/services/map.service';
 import { Address } from '../../types';
 
@@ -7,46 +7,62 @@ import { Address } from '../../types';
   selector: 'app-address-input',
   templateUrl: './address-input.component.html',
   styleUrls: ['./address-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AddressInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class AddressInputComponent implements OnInit {
+export class AddressInputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
 
   @Input() type: string = 'text';
 
   @Input() iconUrl: string;
 
-  @Output() changeAddress: EventEmitter<Address> = new EventEmitter();
+  @Input() errors: any;
 
   addresses: Address[] = [];
-
-  @Input() value: string = '';
-
-  @Input() errors?: ValidationErrors | null | undefined;
-
-  selectedAddress: Address;
 
   isOpenAddressesList: boolean = false;
 
   control = new FormControl();
 
+  onChange: any;
+
+  onTouch: any;
+
   constructor(private mapService: MapService) {}
 
-  ngOnInit(): void {}
-
   searchAddress() {
-    if (this.value && this.value.length > 2) {
-      this.mapService.getPositionByStreetName(this.value).subscribe((addresses: Address[]) => {
-        this.addresses = addresses;
-      });
+    if (this.control.value && this.control.value.length > 2) {
+      this.mapService
+        .getPositionByStreetName(this.control.value)
+        .subscribe((addresses: Address[]) => {
+          this.addresses = addresses;
+        });
     }
   }
 
   selectAddress(selectedAddress: Address) {
     if (selectedAddress) {
-      this.selectedAddress = selectedAddress;
       this.isOpenAddressesList = false;
-      this.value = selectedAddress.label;
-      this.changeAddress.emit(selectedAddress);
+      this.control.setValue(selectedAddress.label);
+      this.onChange(selectedAddress);
     }
+  }
+
+  writeValue(value: any): void {
+    this.control.setValue(value?.label);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
   }
 }

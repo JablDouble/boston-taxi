@@ -4,8 +4,7 @@
       <app-address-input
         placeholder="Pickup Address"
         iconUrl="/assets/img/home.svg"
-        (changeAddress)="setPickupAddress($event)"
-        [value]="orderTaxiForm.get('pickupAddress')?.value?.label"
+        formControlName="pickupAddress"
         [errors]="orderTaxiForm.get('pickupAddress')?.errors"
       >
       </app-address-input>
@@ -14,8 +13,7 @@
       <app-address-input
         placeholder="Arrival Address"
         iconUrl="/assets/img/arrival.svg"
-        (changeAddress)="setArrivalAddress($event)"
-        [value]="orderTaxiForm.get('arrivalAddress')?.value?.label"
+        formControlName="arrivalAddress"
         [errors]="orderTaxiForm.get('arrivalAddress')?.errors"
       ></app-address-input>
     </div>
