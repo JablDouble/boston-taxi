@@ -18,7 +18,7 @@
       ></app-address-input>
     </div>
     <app-delimiter></app-delimiter>
-    <app-taxi-type-toggle-group (changeTariff)="onSetTariff($event)"></app-taxi-type-toggle-group>
+    <app-taxi-type-toggle-group formControlName="tariff"></app-taxi-type-toggle-group>
     <app-delimiter></app-delimiter>
     <app-payment-select formControlName="paymentMethod"></app-payment-select>
     <app-delimiter></app-delimiter>

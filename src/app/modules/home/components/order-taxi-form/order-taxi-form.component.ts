@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { MapService } from 'src/app/core/services/map.service';
 import { TripService } from 'src/app/core/services/trip.service';
 import { Address, Coordinate, PaymentMethod } from 'src/app/shared/types';
@@ -9,7 +10,7 @@ import { Address, Coordinate, PaymentMethod } from 'src/app/shared/types';
   templateUrl: './order-taxi-form.component.html',
   styleUrls: ['./order-taxi-form.component.scss'],
 })
-export class OrderTaxiFormComponent {
+export class OrderTaxiFormComponent implements OnDestroy {
   orderTaxiForm = new FormGroup({
     pickupAddress: new FormControl(null, [Validators.required]),
     arrivalAddress: new FormControl(null, [Validators.required]),
@@ -17,20 +18,27 @@ export class OrderTaxiFormComponent {
     paymentMethod: new FormControl(PaymentMethod.Cash, [Validators.required]),
   });
 
+  private readonly destroyAddress$ = new Subject();
+
   constructor(private mapService: MapService, public tripService: TripService) {
     this.generateInitialAddress();
 
-    this.orderTaxiForm.controls['pickupAddress'].valueChanges.subscribe(
-      (pickupAddress: Address) => {
+    this.orderTaxiForm.controls['pickupAddress'].valueChanges
+      .pipe(takeUntil(this.destroyAddress$))
+      .subscribe((pickupAddress: Address) => {
         this.mapService.setStartPointOfPath(pickupAddress);
-      },
-    );
+      });
 
-    this.orderTaxiForm.controls['arrivalAddress'].valueChanges.subscribe(
-      (pickupAddress: Address) => {
+    this.orderTaxiForm.controls['arrivalAddress'].valueChanges
+      .pipe(takeUntil(this.destroyAddress$))
+      .subscribe((pickupAddress: Address) => {
         this.mapService.setEndPointOfPath(pickupAddress);
-      },
-    );
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyAddress$.next(null);
+    this.destroyAddress$.complete();
   }
 
   callTheTaxi() {
