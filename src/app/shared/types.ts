@@ -43,3 +43,5 @@ export enum PaymentMethod {
 }
 
 export type ButtonType = 'button' | 'reset' | 'submit';
+
+export type ElementSize = 'small' | 'medium' | 'big';

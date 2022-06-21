@@ -15,6 +15,7 @@ import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-la
 import { HeaderComponent } from './layout/header/header.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LogoModule } from './shared/components/logo/logo.module';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       libraries: ['places'],
     }),
     BrowserAnimationsModule,
+    LogoModule,
   ],
   declarations: [AppComponent, DashboardLayoutComponent, HeaderComponent, NavbarComponent],
   providers: [

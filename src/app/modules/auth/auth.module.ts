@@ -10,6 +10,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
 import { InputModule } from 'src/app/shared/components/input/input.module';
+import { LogoModule } from 'src/app/shared/components/logo/logo.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
     ReactiveFormsModule,
     ButtonModule,
     InputModule,
+    LogoModule,
   ],
   declarations: [
     AuthLayoutComponent,
