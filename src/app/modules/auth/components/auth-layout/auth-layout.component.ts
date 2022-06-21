@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Component({
@@ -6,8 +6,6 @@ import { LoaderService } from 'src/app/core/services/loader.service';
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.scss'],
 })
-export class AuthLayoutComponent implements OnInit {
+export class AuthLayoutComponent {
   constructor(public loadingService: LoaderService) {}
-
-  ngOnInit(): void {}
 }

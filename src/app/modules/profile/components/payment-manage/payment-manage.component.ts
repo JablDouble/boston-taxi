@@ -8,8 +8,6 @@ import { Component } from '@angular/core';
 export class PaymentManageComponent {
   isAddCardSectionShown: boolean = false;
 
-  constructor() {}
-
   showCardBlockSection() {
     this.isAddCardSectionShown = true;
   }

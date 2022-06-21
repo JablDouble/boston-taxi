@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Address } from 'src/app/shared/types';
@@ -8,14 +8,8 @@ import { Address } from 'src/app/shared/types';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent {
   constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    // this.mapService.getHomePosition().subscribe((address) => {
-    //   console.log(address);
-    // });
-  }
 
   setHomeAddress(address: Address) {
     console.log(address);

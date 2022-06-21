@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { MapService } from 'src/app/core/services/map.service';
 import { Address } from '../../types';
@@ -8,7 +8,7 @@ import { Address } from '../../types';
   templateUrl: './address-input.component.html',
   styleUrls: ['./address-input.component.scss'],
 })
-export class AddressInputComponent implements OnInit {
+export class AddressInputComponent {
   @Input() placeholder: string = '';
 
   @Input() type: string = 'text';
@@ -30,8 +30,6 @@ export class AddressInputComponent implements OnInit {
   control = new FormControl();
 
   constructor(private mapService: MapService) {}
-
-  ngOnInit(): void {}
 
   searchAddress() {
     if (this.value && this.value.length > 2) {

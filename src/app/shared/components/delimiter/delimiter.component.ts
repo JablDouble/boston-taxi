@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './delimiter.component.html',
   styleUrls: ['./delimiter.component.scss'],
 })
-export class DelimiterComponent {
-  constructor() {}
-}
+export class DelimiterComponent {}

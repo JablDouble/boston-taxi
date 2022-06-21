@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Address, Coordinate } from 'src/app/shared/types';
 import { MapService } from '../../../core/services/map.service';
 
@@ -7,7 +7,7 @@ import { MapService } from '../../../core/services/map.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
   @Input() startAddress: Address | null;
 
   @Input() endAddress: Address | null;
@@ -27,6 +27,4 @@ export class MapComponent implements OnInit {
   };
 
   constructor(public mapService: MapService) {}
-
-  ngOnInit(): void {}
 }
