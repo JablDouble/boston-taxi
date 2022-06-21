@@ -33,6 +33,7 @@
   }
 
   .address-list {
+      width: 100%;
       background-color: $primary-color;
       padding: 10px 20px;
       border-radius: 15px;
@@ -58,5 +59,9 @@
               opacity: 0.7;
           }
       }
+  }
+
+  .validation {
+    margin-left: 15px;
   }
 }

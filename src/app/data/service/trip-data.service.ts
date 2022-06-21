@@ -11,7 +11,6 @@ export class TripDataService {
   constructor(private http: HttpClient) {}
 
   createNewTrip(trip: Trip): Observable<string> {
-    console.log(environment.FIREBASE_API_URL);
     return this.http.post<string>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
   }
 

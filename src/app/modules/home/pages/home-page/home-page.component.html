@@ -7,8 +7,8 @@
   </div>
   <div class="order-taxi-map">
     <app-map
-      [startAddress]="tripService.pickupAddress"
-      [endAddress]="tripService.arrivalAddress"
+      [startAddress]="mapService.path.start"
+      [endAddress]="mapService.path.end"
       [taxiPoint]="tripService?.taxi?.position || null"
     ></app-map>
   </div>

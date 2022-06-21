@@ -1,18 +1,19 @@
 <div class="profile">
-    <app-card>
-        <app-account-info></app-account-info>
-        <app-button [success]="true" (click)="logout()">
-            Sign out
-        </app-button>
-    </app-card>
-    <app-card [isInDevelopment]="true">
-        <div class="home-address">
-            <app-address-input placeholder="Home Address" iconUrl="/assets/img/home.svg" class="mb-5"
-                (changeAddress)="setHomeAddress($event)"></app-address-input>
-            <app-map></app-map>
-        </div>
-    </app-card>
-    <app-card>
-        <app-payment-manage></app-payment-manage>
-    </app-card>
+  <app-card>
+    <app-account-info></app-account-info>
+    <app-button [success]="true" (click)="logout()">Sign out</app-button>
+  </app-card>
+  <app-card [isInDevelopment]="true">
+    <div class="home-address">
+      <app-address-input
+        placeholder="Home Address"
+        iconUrl="/assets/img/home.svg"
+        class="mb-5"
+      ></app-address-input>
+      <app-map></app-map>
+    </div>
+  </app-card>
+  <app-card>
+    <app-payment-manage></app-payment-manage>
+  </app-card>
 </div>
