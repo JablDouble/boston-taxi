@@ -11,7 +11,7 @@
   background-color: $primary-color;
   color: $text-color;
 
-  @include shadow(0.06);
+  @include shadow(0.07);
 
   option {
       color: $text-color;

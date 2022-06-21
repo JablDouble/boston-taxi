@@ -1,10 +1,8 @@
-<select class="custom-select" (change)="changePaymentMethod($event)">
-  <option value="cash">💶&emsp;Cash</option>
-  <option
-    *ngFor="let card of creditCards"
-    [value]="card.cardNumber"
-    [selected]="card.cardNumber === paymentService.paymentMethod"
-  >
+<select class="custom-select" [formControl]="control">
+  <option *ngFor="let method of PaymentMethod | keyvalue" [value]="method.value">
+    💶&emsp;{{ method.value }}
+  </option>
+  <option *ngFor="let card of creditCards" [value]="card.cardNumber">
     💳&emsp;{{ card.cardNumber }}
   </option>
 </select>

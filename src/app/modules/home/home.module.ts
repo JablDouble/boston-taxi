@@ -9,17 +9,20 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { DriverInfoComponent } from './components/driver-info/driver-info.component';
 import { DataRecordModule } from 'src/app/shared/components/data-record/data-record.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { RouteInfoComponent } from './components/route-info/route-info.component';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
-import { TaxiSearchingScreenComponent } from './components/taxi-searching-screen/taxi-searching-screen.component';
 import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
+import { TaxiSearchingScreenComponent } from './components/taxi-searching-screen/taxi-searching-screen.component';
+import { OrderTaxiFormComponent } from './components/order-taxi-form/order-taxi-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DelimiterModule } from 'src/app/shared/components/delimiter/delimiter.module';
+import { TaxiTypeToggleGroupModule } from 'src/app/shared/components/taxi-type-toggle-button/taxi-type-toggle-group.module';
 
 @NgModule({
   declarations: [
     HomePageComponent,
     DriverInfoComponent,
-    RouteInfoComponent,
     TaxiSearchingScreenComponent,
+    OrderTaxiFormComponent,
   ],
   imports: [
     RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),
@@ -31,6 +34,9 @@ import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
     DataRecordModule,
     ButtonModule,
     PulseModule,
+    ReactiveFormsModule,
+    DelimiterModule,
+    TaxiTypeToggleGroupModule,
   ],
   exports: [RouterModule],
 })

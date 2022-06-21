@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ButtonType } from '../../types';
 
 @Component({
   selector: 'app-button',
@@ -8,7 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ButtonComponent implements OnInit {
   @Input() success: boolean = true;
 
-  @Input() disabledButton: boolean = false;
+  @Input() isDisabled: boolean = false;
+
+  @Input() type: ButtonType = 'button';
 
   constructor() {}
 

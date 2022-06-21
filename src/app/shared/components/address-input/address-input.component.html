@@ -1,11 +1,28 @@
 <div class="custom-input-container">
-    <img [src]="iconUrl" class="icon" alt="icon of input" *ngIf="iconUrl">
-    <input class="custom-input" [placeholder]="placeholder" [type]="type" [value]="value" (input)="searchAddress()"
-        [(ngModel)]="value" (focus)="isOpenAddressesList = true">
-    <div class="address-list" *ngIf="isOpenAddressesList && addresses.length">
-        <div class="address" *ngFor="let address of addresses" (click)="selectAddress(address)">
-            <h4>{{ address.label }}</h4>
-            <p>{{ address.locality }}, {{ address.country }}</p>
-        </div>
+  <img [src]="iconUrl" class="icon" alt="icon of input" *ngIf="iconUrl" />
+  <input
+    class="custom-input"
+    [placeholder]="placeholder"
+    [type]="type"
+    [value]="value"
+    (input)="searchAddress()"
+    [(ngModel)]="value"
+    (focus)="isOpenAddressesList = true"
+    [formControl]="control"
+  />
+  <div class="address-list" *ngIf="isOpenAddressesList && addresses.length">
+    <div class="address" *ngFor="let address of addresses" (click)="selectAddress(address)">
+      <h4>{{ address.label }}</h4>
+      <p>{{ address.locality }}, {{ address.country }}</p>
     </div>
+  </div>
+  <div class="validation" *ngIf="errors && control.touched">
+    <small *ngIf="errors?.['required']">Required field</small>
+    <small *ngIf="errors?.['minlength']"
+      >Minimal length {{errors?.['minlength'].requiredLength }}</small
+    >
+    <small *ngIf="errors?.['maxlength']"
+      >Maximal length {{errors?.['maxlength'].requiredLength }}</small
+    >
+  </div>
 </div>

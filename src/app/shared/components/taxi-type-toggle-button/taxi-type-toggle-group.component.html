@@ -1,0 +1,6 @@
+<mat-button-toggle-group name="taxi-tariff" aria-label="Taxi tariff" (change)="onChangeType($event.value)">
+  <app-taxi-type-toggle-button name="Economy" [price]="8" img="/assets/img/taxi/economy.png"></app-taxi-type-toggle-button>
+  <app-taxi-type-toggle-button name="Standart" [price]="11" img="/assets/img/taxi/standart.png"></app-taxi-type-toggle-button>
+  <app-taxi-type-toggle-button name="Business" [price]="16" img="/assets/img/taxi/business.png"></app-taxi-type-toggle-button>
+  <app-taxi-type-toggle-button name="Children" [price]="10" img="/assets/img/taxi/children.png"></app-taxi-type-toggle-button>
+</mat-button-toggle-group>

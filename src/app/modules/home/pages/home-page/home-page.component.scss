@@ -1,19 +1,28 @@
 @import 'variables';
+@import 'mixins';
 
 .home {
-  display: grid;
-  grid-template-columns: 2fr 4fr;
-  gap: 40px;
+  position: relative;
 
   h4 {
     color: $text-color;
   }
 
   .home-cards {
-    display: grid;
-    grid-template-rows: 0.7fr 0.4fr 1fr;
+    position: absolute;
+    z-index: 100;
+    top: 45px;
+    left: 50px;
+    min-width: 360px;
+  }
 
-    gap: 20px;
+  .order-taxi-map {
+    @include shadow(0.12);
+
+    height: 85vh;
+    width: 100%;
+    position: absolute;
+    border-radius: 25px;
   }
 
 }

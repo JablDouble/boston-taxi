@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, tap } from 'rxjs';
-import { Taxi, TaxiDriver, Trip, TripResponse } from 'src/app/data/schema/trip';
+import { Tariff, Taxi, TaxiDriver, TaxiOrder, Trip, TripResponse } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
 import { LOCAL_ERRORS } from '../errors/errors';
@@ -20,16 +20,16 @@ export class TripService {
 
   constructor(private tripDataService: TripDataService, private paymentService: PaymentService) {}
 
-  createNewTrip() {
+  createNewTrip(taxiOrder: TaxiOrder) {
     this.findTaxiDriver().subscribe((taxiDriver: TaxiDriver) => {
-      if (this.pickupAddress && this.arrivalAddress) {
+      const { pickupAddress, arrivalAddress, tariff } = taxiOrder;
+
+      if (pickupAddress && arrivalAddress) {
         const trip: Trip = {
-          pickupAddress: this.pickupAddress,
-          arrivalAddress: this.arrivalAddress,
           taxiDriver,
           time: new Date(),
-          amount: Math.floor(Math.random() * 100),
-          paymentMethod: this.paymentService.paymentMethod,
+          amount: this.calculateCostOfOrder(tariff),
+          ...taxiOrder,
         };
 
         return this.tripDataService
@@ -40,13 +40,7 @@ export class TripService {
           )
           .subscribe(() => {
             this.isSearching = false;
-            this.taxi = {
-              taxiDriver,
-              position: {
-                latitude: this.pickupAddress.latitude - 0.00045840645,
-                longitude: this.pickupAddress.longitude - 0.0001481538,
-              },
-            }; // mock taxi position. Point near user
+            this.taxi = this.generateTaxiDriverPosition(taxiDriver, pickupAddress);
           });
       } else {
         throw new Error(LOCAL_ERRORS['INVALID_TRIP']);
@@ -79,5 +73,39 @@ export class TripService {
 
   public setArrivalAddress(address: Address) {
     this.arrivalAddress = address;
+  }
+
+  private calculateCostOfOrder(tariff: Tariff) {
+    let tariffCost;
+
+    switch (tariff) {
+      case Tariff.Economy:
+        tariffCost = 8;
+        break;
+      case Tariff.Standart:
+        tariffCost = 11;
+        break;
+      case Tariff.Business:
+        tariffCost = 16;
+        break;
+      case Tariff.Children:
+        tariffCost = 10;
+        break;
+      default:
+        tariffCost = 16;
+        break;
+    }
+
+    return tariffCost + Math.floor(Math.random() * 100);
+  }
+
+  private generateTaxiDriverPosition(taxiDriver: TaxiDriver, currentAddress: Address) {
+    return {
+      taxiDriver,
+      position: {
+        latitude: currentAddress.latitude - 0.00555850655,
+        longitude: currentAddress.longitude - 0.0001481538,
+      },
+    }; // mock taxi position. Point near user
   }
 }
