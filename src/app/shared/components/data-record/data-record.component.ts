@@ -1,16 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-data-record',
   templateUrl: './data-record.component.html',
   styleUrls: ['./data-record.component.scss'],
 })
-export class DataRecordComponent implements OnInit {
+export class DataRecordComponent {
   @Input() title: string = '';
 
   @Input() text: string = '';
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Input() img: string;
 }

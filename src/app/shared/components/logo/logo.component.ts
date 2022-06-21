@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ElementSize } from '../../types';
 
 @Component({
@@ -6,10 +6,6 @@ import { ElementSize } from '../../types';
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss'],
 })
-export class LogoComponent implements OnInit {
+export class LogoComponent {
   @Input() size: ElementSize = 'small';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

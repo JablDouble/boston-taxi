@@ -2,9 +2,7 @@
   <div class="home-cards">
     <app-order-taxi-form *ngIf="!tripService?.taxi?.position && !tripService.isSearching">
     </app-order-taxi-form>
-    <app-card *ngIf="tripService?.taxi?.position">
-      <app-driver-info></app-driver-info>
-    </app-card>
+    <app-driver-info *ngIf="tripService?.taxi?.position"></app-driver-info>
     <app-taxi-searching-screen *ngIf="tripService.isSearching"></app-taxi-searching-screen>
   </div>
   <div class="order-taxi-map">

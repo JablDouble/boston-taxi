@@ -1,5 +1,10 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+} from '@angular/forms';
 import { MapService } from 'src/app/core/services/map.service';
 import { Address } from '../../types';
 
@@ -22,7 +27,7 @@ export class AddressInputComponent implements ControlValueAccessor {
 
   @Input() iconUrl: string;
 
-  @Input() errors: any;
+  @Input() errors: ValidationErrors | null | undefined;
 
   addresses: Address[] = [];
 
@@ -30,9 +35,9 @@ export class AddressInputComponent implements ControlValueAccessor {
 
   control = new FormControl();
 
-  onChange: any;
+  onChange: (value: Address) => void;
 
-  onTouch: any;
+  onTouch: () => void;
 
   constructor(private mapService: MapService) {}
 
@@ -54,15 +59,15 @@ export class AddressInputComponent implements ControlValueAccessor {
     }
   }
 
-  writeValue(value: any): void {
+  writeValue(value: Address): void {
     this.control.setValue(value?.label);
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: Address) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 }

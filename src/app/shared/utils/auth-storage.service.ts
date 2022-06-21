@@ -7,8 +7,6 @@ const authTokenName = 'token';
   providedIn: 'root',
 })
 export class AuthStorageService {
-  constructor() {}
-
   getAuthToken() {
     return Cookie.get(authTokenName);
   }
