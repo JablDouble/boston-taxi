@@ -8,8 +8,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class TaxiTypeToggleGroupComponent {
   @Output() changeTariff: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {}
-
   onChangeType(value: string) {
     this.changeTariff.emit(value);
   }

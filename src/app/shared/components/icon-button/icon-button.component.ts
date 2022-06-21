@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ElementSize } from '../../types';
 
 @Component({
@@ -6,12 +6,8 @@ import { ElementSize } from '../../types';
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.scss'],
 })
-export class IconButtonComponent implements OnInit {
+export class IconButtonComponent {
   @Input() size: ElementSize = 'small';
 
   @Input() img: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './taxi-searching-screen.component.html',
   styleUrls: ['./taxi-searching-screen.component.scss'],
 })
-export class TaxiSearchingScreenComponent {
-  constructor() {}
-}
+export class TaxiSearchingScreenComponent {}

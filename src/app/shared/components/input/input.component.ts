@@ -33,8 +33,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   @ViewChild('input') inputRef: ElementRef;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.control.valueChanges.subscribe((value) => {
       if (this.onChange) {
