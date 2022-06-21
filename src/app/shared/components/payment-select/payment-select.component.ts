@@ -18,9 +18,9 @@ import { CreditCard, PaymentMethod } from '../../types';
 export class PaymentSelectComponent extends SelectControlValueAccessor implements OnInit {
   creditCards: CreditCard[];
 
-  override value: any;
+  override value: string;
 
-  override onChange: (_: any) => void;
+  override onChange: (_: string) => void;
 
   override onTouched: () => void;
 
