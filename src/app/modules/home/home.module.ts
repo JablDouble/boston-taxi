@@ -11,6 +11,7 @@ import { DataRecordModule } from 'src/app/shared/components/data-record/data-rec
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
 import { PulseModule } from 'src/app/shared/components/pulse/pulse.module';
+import { IconButtonModule } from 'src/app/shared/components/icon-button/icon-button.module';
 import { TaxiSearchingScreenComponent } from './components/taxi-searching-screen/taxi-searching-screen.component';
 import { OrderTaxiFormComponent } from './components/order-taxi-form/order-taxi-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -34,8 +35,9 @@ import { TaxiTypeToggleGroupModule } from 'src/app/shared/components/taxi-type-t
     DataRecordModule,
     ButtonModule,
     PulseModule,
-    ReactiveFormsModule,
     DelimiterModule,
+    IconButtonModule,
+    ReactiveFormsModule,
     TaxiTypeToggleGroupModule,
   ],
   exports: [RouterModule],
