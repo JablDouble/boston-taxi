@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<never>, next: HttpHandler): Observable<HttpEvent<void>> {
     if (this.authService.isAuth()) {
       req = req.clone({
         setParams: {

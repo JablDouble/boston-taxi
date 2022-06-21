@@ -1,5 +1,10 @@
 import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+} from '@angular/forms';
 import { InputTypes } from '../../types';
 
 @Component({
@@ -23,13 +28,13 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   @Input() placeholder: string = '';
 
-  @Input() error: any;
+  @Input() error: ValidationErrors | null | undefined;
 
   control = new FormControl();
 
-  onChange: any;
+  onChange: (value: string) => void;
 
-  onTouch: any;
+  onTouch: () => void;
 
   @ViewChild('input') inputRef: ElementRef;
 
@@ -41,15 +46,15 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.control.setValue(value);
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 }

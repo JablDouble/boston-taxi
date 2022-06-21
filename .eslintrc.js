@@ -17,6 +17,7 @@ module.exports = {
             rules: {
                 "import/no-unresolved": "off",
                 "@typescript-eslint/no-useless-constructor": "off",
+                "@typescript-eslint/no-explicit-any": "error",
                 "prettier/prettier": ["error", {
                     "endOfLine": "auto"
                 }
@@ -42,6 +43,7 @@ module.exports = {
             rules: {
                 "import/no-unresolved": "off",
                 "@typescript-eslint/no-useless-constructor": "off",
+                "@typescript-eslint/no-empty-function": "off",
                 "@angular-eslint/no-output-on-prefix": "off",
                 "prettier/prettier": ["error", {
                     "endOfLine": "auto"

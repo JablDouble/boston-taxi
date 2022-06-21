@@ -7,7 +7,9 @@ import { SERVER_ERRORS } from './errors';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private notificationService: NotificationService, private ngZone: NgZone) {}
 
-  handleError(error: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleError(error: HttpErrorResponse | any) {
+    console.log(error);
     console.error(error);
 
     if (!(error instanceof HttpErrorResponse)) {
