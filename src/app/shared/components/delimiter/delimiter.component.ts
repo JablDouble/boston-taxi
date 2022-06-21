@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-delimiter',
   templateUrl: './delimiter.component.html',
   styleUrls: ['./delimiter.component.scss'],
 })
-export class DelimiterComponent implements OnInit {
+export class DelimiterComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }

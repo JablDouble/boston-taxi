@@ -2,15 +2,19 @@
   [latitude]="startAddress?.latitude || 53.9"
   [longitude]="startAddress?.longitude || 27.5"
   [zoom]="zoom"
+  [maxZoom]="maxZoom"
+  [fitBounds]="!!endAddress"
 >
   <agm-marker
     [latitude]="startAddress?.latitude || 53.9"
     [longitude]="startAddress?.longitude || 27.5"
+    [agmFitBounds]="!taxiPoint"
   ></agm-marker>
   <agm-marker
     *ngIf="endAddress"
     [latitude]="endAddress.latitude"
     [longitude]="endAddress.longitude"
+    [agmFitBounds]="!taxiPoint"
   >
   </agm-marker>
   <agm-marker
@@ -20,6 +24,7 @@
     iconHeight="20"
     iconWidth="20"
     [iconUrl]="$any(iconTaxi)"
+    [agmFitBounds]="!!taxiPoint"
   >
   </agm-marker>
 </agm-map>

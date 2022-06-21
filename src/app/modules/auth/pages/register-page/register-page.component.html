@@ -9,7 +9,7 @@
         <app-input label="Password" id="password" type="password" formControlName="password"
             [error]="registerForm?.get('password')?.errors">
         </app-input>
-        <app-button [success]="true" [disabledButton]="registerForm.invalid">Sign Up</app-button>
+        <app-button [success]="true" [isDisabled]="registerForm.invalid">Sign Up</app-button>
     </form>
     <p class="text-center">Are you already User? <a routerLink="/auth/login">Sign In</a></p>
 </app-auth-card>
