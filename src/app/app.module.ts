@@ -16,6 +16,9 @@ import { HeaderComponent } from './layout/header/header.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoModule } from './shared/components/logo/logo.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import store from './store';
 
 @NgModule({
   imports: [
@@ -31,6 +34,8 @@ import { LogoModule } from './shared/components/logo/logo.module';
     }),
     BrowserAnimationsModule,
     LogoModule,
+    StoreModule.forRoot(store),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   declarations: [AppComponent, DashboardLayoutComponent, HeaderComponent, NavbarComponent],
   providers: [
