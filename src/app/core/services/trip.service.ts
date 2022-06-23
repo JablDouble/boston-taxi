@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, tap } from 'rxjs';
-import { Tariff, Taxi, TaxiDriver, TaxiOrder, Trip, TripResponse } from 'src/app/data/schema/trip';
+import { Store } from '@ngrx/store';
+import { delay, map, Observable } from 'rxjs';
+import {
+  Tariff,
+  Taxi,
+  TaxiDriver,
+  TaxiOrder,
+  Trip,
+  TripResponse,
+  TripStatus,
+} from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
+import { assignTaxiDriver, createNewTrip } from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
-import { PaymentService } from './payment.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,34 +23,34 @@ export class TripService {
 
   isSearching: boolean;
 
-  constructor(private tripDataService: TripDataService, private paymentService: PaymentService) {}
+  constructor(private tripDataService: TripDataService, private store: Store) {}
 
   createNewTrip(taxiOrder: TaxiOrder) {
-    this.findTaxiDriver().subscribe((taxiDriver: TaxiDriver) => {
-      const { pickupAddress, arrivalAddress, tariff } = taxiOrder;
+    const { pickupAddress, arrivalAddress, tariff } = taxiOrder;
 
-      if (pickupAddress && arrivalAddress) {
-        const trip: Trip = {
-          taxiDriver,
-          time: new Date(),
-          amount: this.calculateCostOfOrder(tariff),
-          ...taxiOrder,
-        };
+    if (pickupAddress && arrivalAddress) {
+      const trip: Trip = {
+        time: new Date(),
+        amount: this.calculateCostOfOrder(tariff),
+        status: TripStatus.Search,
+        ...taxiOrder,
+      };
 
-        return this.tripDataService
-          .createNewTrip(trip)
-          .pipe(
-            tap(() => (this.isSearching = true)),
-            delay(5000),
-          )
-          .subscribe(() => {
-            this.isSearching = false;
-            this.taxi = this.generateTaxiDriverPosition(taxiDriver, pickupAddress);
-          });
-      } else {
-        throw new Error(LOCAL_ERRORS['INVALID_TRIP']);
-      }
-    });
+      return this.tripDataService.createNewTrip(trip).subscribe(({ name }) => {
+        trip.id = name;
+
+        if (trip.id) {
+          this.store.dispatch(createNewTrip({ trip }));
+          this.isSearching = true;
+
+          this.findTaxiDriver(trip);
+        } else {
+          throw new Error(LOCAL_ERRORS['TRIP_NOT_CREATED']);
+        }
+      });
+    } else {
+      throw new Error(LOCAL_ERRORS['INVALID_TRIP']);
+    }
   }
 
   getAllTrips(): Observable<Trip[]> {
@@ -59,8 +68,24 @@ export class TripService {
     );
   }
 
-  private findTaxiDriver() {
-    return this.tripDataService.findTaxiDriver();
+  private findTaxiDriver(trip: Trip) {
+    if (!trip.id) {
+      throw new Error(LOCAL_ERRORS['TRIP_NOT_CREATED']);
+    }
+
+    return this.tripDataService
+      .findTaxiDriver()
+      .pipe(delay(5000))
+      .subscribe((taxiDriver: TaxiDriver) => {
+        this.store.dispatch(
+          assignTaxiDriver({
+            tripId: trip.id!,
+            taxiDriver: taxiDriver,
+          }),
+        );
+        this.isSearching = false;
+        this.taxi = this.generateTaxiDriverPosition(taxiDriver, trip.pickupAddress);
+      });
   }
 
   private calculateCostOfOrder(tariff: Tariff) {

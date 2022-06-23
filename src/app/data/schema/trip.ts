@@ -35,8 +35,18 @@ export interface TaxiOrder {
   tariff: Tariff;
 }
 
+export enum TripStatus {
+  Search = 'search',
+  Accepted = 'accepted',
+  Waiting = 'waiting',
+  Start = 'start',
+  Completion = 'completion',
+}
+
 export interface Trip extends TaxiOrder {
+  id?: string;
   time: Date;
-  taxiDriver: TaxiDriver;
+  taxiDriver?: TaxiDriver;
   amount: number;
+  status: TripStatus;
 }
