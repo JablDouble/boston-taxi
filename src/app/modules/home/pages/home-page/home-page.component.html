@@ -3,18 +3,12 @@
   <div class="home-cards">
     <app-order-taxi-form *ngIf="!chosenTripStatus">
     </app-order-taxi-form>
-    <app-driver-info
-      *ngIf="tripService?.taxi?.position && chosenTripStatus === TripStatus.Accepted"
-    ></app-driver-info>
-    <app-taxi-searching-screen
-      *ngIf="chosenTripStatus === TripStatus.Search"
-    ></app-taxi-searching-screen>
+    <app-driver-info *ngIf="tripService?.taxi?.position && chosenTripStatus === TripStatus.Accepted"></app-driver-info>
+    <app-taxi-searching-screen *ngIf="chosenTripStatus === TripStatus.Search"></app-taxi-searching-screen>
   </div>
   <div class="order-taxi-map">
-    <app-map
-      [startAddress]="mapService.path.start"
-      [endAddress]="mapService.path.end"
-      [taxiPoint]="tripService?.taxi?.position || null"
-    ></app-map>
+    <app-map [startAddress]="mapService.path.start" [endAddress]="mapService.path.end"
+      [taxiPoint]="tripService?.taxi?.position || null"></app-map>
   </div>
+  <app-order-list class="order-list-section"></app-order-list>
 </div>

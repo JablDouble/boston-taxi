@@ -1,0 +1,33 @@
+@import 'variables';
+@import 'mixins';
+
+.order-item-card {
+  background: $secondary-color;
+  opacity: 0.9;
+  padding: 15px 40px;
+  border-radius: 15px;
+  width: 340px;
+  height: 100%;
+
+  @include internalExternalShadow(0.13, 0.02);
+
+  .address-title {
+    text-overflow: ellipsis;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .trip-status {
+    font-weight: 500;
+    margin-top: 15px;
+  }
+
+  .vehicle-plate-number {
+    background-color: $gray;
+    padding: 3px 10px;
+    border-radius: 9px;
+    font-size: 14px;
+    color: white;
+  }
+}

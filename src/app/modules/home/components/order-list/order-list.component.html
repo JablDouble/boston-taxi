@@ -1,0 +1,3 @@
+<div class="order-list" *ngIf="trips?.length && trips.length > 1">
+    <app-order-item *ngFor="let trip of trips; let i = index" [trip]="trip" [index]="i+1"></app-order-item>
+</div>
