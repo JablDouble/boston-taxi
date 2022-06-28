@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ButtonType } from '../../types';
+import { ButtonColor, ButtonType } from '../../types';
 
 @Component({
   selector: 'app-button',
@@ -7,7 +7,7 @@ import { ButtonType } from '../../types';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() success: boolean = true;
+  @Input() color: ButtonColor = 'success';
 
   @Input() isDisabled: boolean = false;
 

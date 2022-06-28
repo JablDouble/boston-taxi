@@ -1,0 +1,7 @@
+<app-button
+  class="order-another-car-btn"
+  color="secondary"
+  *ngIf="(ChosenTrip$ | async) && (trips$ | async)?.length"
+  (click)="tripService.changeChosenTrip(0)"
+  >Order another taxi</app-button
+>

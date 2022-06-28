@@ -8,7 +8,7 @@
       (submitAddCard)="hideCardBlockSection()"
     ></app-card-section>
   </div>
-  <app-button [success]="true" (click)="showCardBlockSection()" *ngIf="!isAddCardSectionShown"
+  <app-button (click)="showCardBlockSection()" *ngIf="!isAddCardSectionShown"
     >Add New Card</app-button
   >
   <app-button (click)="hideCardBlockSection()" *ngIf="isAddCardSectionShown">Cancel</app-button>

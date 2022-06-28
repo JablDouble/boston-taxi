@@ -17,6 +17,7 @@ import { OrderTaxiFormComponent } from './components/order-taxi-form/order-taxi-
 import { ReactiveFormsModule } from '@angular/forms';
 import { DelimiterModule } from 'src/app/shared/components/delimiter/delimiter.module';
 import { TaxiTypeToggleGroupModule } from 'src/app/shared/components/taxi-type-toggle-button/taxi-type-toggle-group.module';
+import { OrderAnotherCarButtonComponent } from './components/order-another-car-button/order-another-car-button.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TaxiTypeToggleGroupModule } from 'src/app/shared/components/taxi-type-t
     DriverInfoComponent,
     TaxiSearchingScreenComponent,
     OrderTaxiFormComponent,
+    OrderAnotherCarButtonComponent,
   ],
   imports: [
     RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),

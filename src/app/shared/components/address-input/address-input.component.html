@@ -10,7 +10,7 @@
   />
   <div
     class="address-list"
-    *ngIf="isOpenAddressesList && addresses.length && control.value.length > 2"
+    *ngIf="isOpenAddressesList && addresses?.length && control.value.length > 2"
   >
     <div class="address" *ngFor="let address of addresses" (click)="selectAddress(address)">
       <h4>{{ address.label }}</h4>

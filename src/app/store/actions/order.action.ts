@@ -9,3 +9,7 @@ export const assignTaxiDriver = createAction(
   '[Order] Assign Taxi Driver',
   (payload: { tripId: string; taxiDriver: TaxiDriver }) => payload,
 );
+export const chooseTripIndex = createAction(
+  '[Order] Choose Trip',
+  (payload: { tripIndex: number }) => payload,
+);

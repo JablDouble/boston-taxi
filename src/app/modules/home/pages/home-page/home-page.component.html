@@ -1,9 +1,14 @@
 <div class="home">
+  <app-order-another-car-button></app-order-another-car-button>
   <div class="home-cards">
-    <app-order-taxi-form *ngIf="!tripService?.taxi?.position && !tripService.isSearching">
+    <app-order-taxi-form *ngIf="!chosenTripStatus">
     </app-order-taxi-form>
-    <app-driver-info *ngIf="tripService?.taxi?.position"></app-driver-info>
-    <app-taxi-searching-screen *ngIf="tripService.isSearching"></app-taxi-searching-screen>
+    <app-driver-info
+      *ngIf="tripService?.taxi?.position && chosenTripStatus === TripStatus.Accepted"
+    ></app-driver-info>
+    <app-taxi-searching-screen
+      *ngIf="chosenTripStatus === TripStatus.Search"
+    ></app-taxi-searching-screen>
   </div>
   <div class="order-taxi-map">
     <app-map

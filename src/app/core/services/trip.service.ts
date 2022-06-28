@@ -12,7 +12,11 @@ import {
 } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
-import { assignTaxiDriver, createNewTrip } from 'src/app/store/actions/order.action';
+import {
+  assignTaxiDriver,
+  chooseTripIndex,
+  createNewTrip,
+} from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
 @Injectable({
@@ -51,6 +55,10 @@ export class TripService {
     } else {
       throw new Error(LOCAL_ERRORS['INVALID_TRIP']);
     }
+  }
+
+  changeChosenTrip(tripIndex: number) {
+    this.store.dispatch(chooseTripIndex({ tripIndex }));
   }
 
   getAllTrips(): Observable<Trip[]> {
