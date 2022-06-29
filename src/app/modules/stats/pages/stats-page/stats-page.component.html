@@ -2,7 +2,7 @@
   <app-table [headItems]="headItems">
     <tr *ngFor="let trip of trips">
       <td>{{ trip.time | date: 'short' }}</td>
-      <td>{{ trip.taxiDriver.vehicle.brand }} {{ trip.taxiDriver.vehicle.model }}</td>
+      <td>{{ trip.taxiDriver?.vehicle?.brand }} {{ trip.taxiDriver?.vehicle?.model }}</td>
       <td>{{ trip.pickupAddress.label }}</td>
       <td>{{ trip.arrivalAddress.label }}</td>
       <td>{{ trip.amount | currency: 'USD' }}</td>

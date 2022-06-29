@@ -10,8 +10,8 @@ import { TaxiDriver, Trip, TripResponse } from '../schema/trip';
 export class TripDataService {
   constructor(private http: HttpClient) {}
 
-  createNewTrip(trip: Trip): Observable<string> {
-    return this.http.post<string>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
+  createNewTrip(trip: Trip): Observable<{ name: string }> {
+    return this.http.post<{ name: string }>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
   }
 
   getAllTrips(): Observable<TripResponse> {

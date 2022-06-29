@@ -1,3 +1,5 @@
+import { Trip } from '../data/schema/trip';
+
 export interface OrderState {
-  trips: object[];
+  trips: Trip[];
 }
