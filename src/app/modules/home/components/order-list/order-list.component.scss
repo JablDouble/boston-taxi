@@ -1,0 +1,9 @@
+@import 'animations';
+
+.order-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+
+    animation: appearance 0.8s;
+}

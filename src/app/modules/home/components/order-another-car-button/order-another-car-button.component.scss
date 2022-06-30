@@ -1,0 +1,14 @@
+@import 'animations';
+
+:host {
+    display: contents;
+}
+
+.order-another-car-btn {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    top: 20px;
+
+    animation: appearance 0.8s;
+}

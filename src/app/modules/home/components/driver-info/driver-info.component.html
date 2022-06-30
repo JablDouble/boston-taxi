@@ -8,7 +8,7 @@
   ></app-data-record>
   <app-delimiter></app-delimiter>
   <app-data-record
-    [title]="getVehicleInfoByTaxiDriver(taxiDriver) || 'Unknown Brand'"
+    [title]="tripService.getVehicleInfoByTaxiDriver(taxiDriver) || 'Unknown Brand'"
     [text]="taxiDriver?.vehicle?.plateNumber || 'Unknown Number'"
     img="/assets/img/car.svg"
   ></app-data-record>

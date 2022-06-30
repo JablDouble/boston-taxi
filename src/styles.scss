@@ -60,6 +60,10 @@ a {
   &:hover {
     color: #666;
   }
+
+  & > * {
+    color: $text-color;
+  }
 }
 
 ul {

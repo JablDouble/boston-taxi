@@ -42,6 +42,8 @@ export enum PaymentMethod {
   Cash = 'Cash',
 }
 
+export type ButtonColor = 'success' | 'secondary';
+
 export type ButtonType = 'button' | 'reset' | 'submit';
 
 export type ElementSize = 'small' | 'medium' | 'big';

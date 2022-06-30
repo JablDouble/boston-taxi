@@ -3,6 +3,7 @@
 
 .home {
   position: relative;
+  height: 85vh;
 
   h4 {
     color: $text-color;
@@ -19,10 +20,17 @@
   .order-taxi-map {
     @include shadow(0.12);
 
-    height: 85vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     border-radius: 25px;
+  }
+
+  .order-list-section {
+    position: absolute;
+    bottom: 5%;
+    padding: 0 5%;
+    width: 100%;
   }
 
 }

@@ -12,7 +12,11 @@ import {
 } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
-import { assignTaxiDriver, createNewTrip } from 'src/app/store/actions/order.action';
+import {
+  assignTaxiDriver,
+  chooseTripIndex,
+  createNewTrip,
+} from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
 @Injectable({
@@ -51,6 +55,10 @@ export class TripService {
     } else {
       throw new Error(LOCAL_ERRORS['INVALID_TRIP']);
     }
+  }
+
+  changeChosenTrip(tripIndex: number) {
+    this.store.dispatch(chooseTripIndex({ tripIndex }));
   }
 
   getAllTrips(): Observable<Trip[]> {
@@ -121,4 +129,39 @@ export class TripService {
       },
     }; // mock taxi position. Point near user
   }
+
+  getTripStatusMessage(status: TripStatus) {
+    switch (status) {
+      case TripStatus.Search:
+        return 'Looking for the best variant...';
+      case TripStatus.Accepted:
+        return 'Driver are already going to you';
+      case TripStatus.Waiting:
+        return 'The driver is waiting for you...';
+      case TripStatus.Start:
+        return 'The driver started the trip';
+      case TripStatus.Start:
+        return 'The driver finished the trip';
+    }
+  }
+
+  getVehicleInfoByTaxiDriver = (taxiDriver: TaxiDriver): null | string => {
+    const { vehicle } = taxiDriver;
+
+    let vehicleInfo: string[] = [];
+
+    if (vehicle.brand) {
+      vehicleInfo.push(vehicle.brand);
+    }
+
+    if (vehicle.model) {
+      vehicleInfo.push(vehicle.model);
+    }
+
+    if (!vehicleInfo.length) {
+      return null;
+    }
+
+    return vehicleInfo.join(' ');
+  };
 }

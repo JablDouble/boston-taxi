@@ -1,0 +1,11 @@
+<a [routerLink]="trip.id">
+    <div class="order-item-card" *ngIf="trip">
+        <h2>{{ formatterService.numberToWords(index) + ' taxi' | titlecase }}</h2>
+        <p class="address-title">{{ trip?.arrivalAddress?.label}}</p>
+        <h3 class="trip-status">{{ tripService.getTripStatusMessage(trip.status) }}</h3>
+        <p *ngIf="trip?.taxiDriver">
+            {{ tripService.getVehicleInfoByTaxiDriver(trip.taxiDriver!) }}
+            <span class="vehicle-plate-number">{{ trip.taxiDriver?.vehicle?.plateNumber }}</span>
+        </p>
+    </div>
+</a>
