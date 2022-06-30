@@ -14,7 +14,7 @@ import { TripService } from 'src/app/core/services/trip.service';
 export class OrderAnotherCarButtonComponent {
   public trips$: Observable<Trip[]> = this.store.pipe(select(selectTrips));
 
-  public ChosenTrip$: Observable<number> = this.store.pipe(select(selectChosenTripIndex));
+  public chosenTrip$: Observable<number> = this.store.pipe(select(selectChosenTripIndex));
 
   constructor(public store: Store<OrderState>, public tripService: TripService) {}
 }

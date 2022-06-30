@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MapService } from 'src/app/core/services/map.service';
 import { TripService } from 'src/app/core/services/trip.service';
 import { Trip, TripStatus } from 'src/app/data/schema/trip';
@@ -12,8 +12,13 @@ import { OrderState } from 'src/app/store/types';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent {
-  public chosenTrip$: Observable<Trip> = this.store.pipe(select(selectChosenTrip));
+export class HomePageComponent implements OnDestroy {
+  private readonly destroyChosenTrips$ = new Subject();
+
+  public chosenTrip$: Observable<Trip> = this.store.pipe(
+    select(selectChosenTrip),
+    takeUntil(this.destroyChosenTrips$),
+  );
 
   public TripStatus = TripStatus;
 
@@ -25,5 +30,10 @@ export class HomePageComponent {
     public store: Store<OrderState>,
   ) {
     this.chosenTrip$.subscribe((trip: Trip) => (this.chosenTripStatus = trip?.status));
+  }
+
+  ngOnDestroy(): void {
+    this.destroyChosenTrips$.next(null);
+    this.destroyChosenTrips$.complete();
   }
 }
