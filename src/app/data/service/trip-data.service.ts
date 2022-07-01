@@ -38,6 +38,13 @@ export class TripDataService {
     });
   }
 
+  updateTaxiDriverOfTrip(tripId: string, taxiDriver: TaxiDriver): Observable<TripResponse> {
+    return this.http.patch<TripResponse>(`${environment.FIREBASE_API_URL}/trips/${tripId}.json`, {
+      status: TripStatus.Accepted,
+      taxiDriver,
+    });
+  }
+
   findTaxiDriver(): Observable<TaxiDriver> {
     return this.http
       .get<TaxiDriver[]>(`${environment.JSON_PLACEHOLDER_API_URL}/users`, {
@@ -54,7 +61,7 @@ export class TripDataService {
           vehicle: {
             brand: 'Chevrolet',
             model: 'Cruze',
-            plateNumber: '7139PI-7',
+            plateNumber: `${Math.floor(Math.random() * 8999) + 1000}PI-7`,
           }, // mock vehicle data
         })),
       );

@@ -5,12 +5,7 @@ import { delay, Observable, tap } from 'rxjs';
 import { Tariff, Taxi, TaxiDriver, TaxiOrder, Trip, TripStatus } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
-import {
-  assignTaxiDriver,
-  chooseTripIndex,
-  createNewTrip,
-  putTrips,
-} from 'src/app/store/actions/order.action';
+import { assignTaxiDriver, createNewTrip, putTrips } from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
 @Injectable({
@@ -53,10 +48,6 @@ export class TripService {
     }
   }
 
-  changeChosenTrip(tripIndex: number) {
-    this.store.dispatch(chooseTripIndex({ tripIndex }));
-  }
-
   getAllTrips(): Observable<Trip[]> {
     return this.tripDataService.getAllTrips();
   }
@@ -76,7 +67,7 @@ export class TripService {
       .findTaxiDriver()
       .pipe(delay(5000))
       .subscribe((taxiDriver: TaxiDriver) => {
-        this.tripDataService.updateStatusOfTrip(trip.id!, TripStatus.Accepted).subscribe(() => {
+        this.tripDataService.updateTaxiDriverOfTrip(trip.id!, taxiDriver).subscribe(() => {
           this.store.dispatch(
             assignTaxiDriver({
               tripId: trip.id!,

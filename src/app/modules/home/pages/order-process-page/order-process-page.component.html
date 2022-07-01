@@ -1,0 +1,7 @@
+<app-taxi-searching-screen
+  *ngIf="chosenTrip.status === TripStatus.Search"
+></app-taxi-searching-screen>
+<app-driver-info
+  [trip]="chosenTrip"
+  *ngIf="chosenTrip.status === TripStatus.Accepted"
+></app-driver-info>

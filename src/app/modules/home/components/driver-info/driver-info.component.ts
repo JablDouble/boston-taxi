@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TripService } from 'src/app/core/services/trip.service';
-import { TaxiDriver } from 'src/app/data/schema/trip';
+import { Trip } from 'src/app/data/schema/trip';
 
 @Component({
   selector: 'app-driver-info',
@@ -8,9 +8,7 @@ import { TaxiDriver } from 'src/app/data/schema/trip';
   styleUrls: ['./driver-info.component.scss'],
 })
 export class DriverInfoComponent {
-  taxiDriver: TaxiDriver;
+  @Input() trip: Trip;
 
-  constructor(public tripService: TripService) {
-    this.taxiDriver = this.tripService?.taxi?.taxiDriver;
-  }
+  constructor(public tripService: TripService) {}
 }
