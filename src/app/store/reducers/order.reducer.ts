@@ -1,6 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { TripStatus } from 'src/app/data/schema/trip';
-import { assignTaxiDriver, chooseTripIndex, createNewTrip } from '../actions/order.action';
+import {
+  assignTaxiDriver,
+  chooseTripIndex,
+  createNewTrip,
+  putTrips,
+} from '../actions/order.action';
 import { OrderState } from '../types';
 
 export const orderNode = 'order';
@@ -43,6 +48,13 @@ export const orderReducer = createReducer(
     (state, payload): OrderState => ({
       ...state,
       chosenTripIndex: payload.tripIndex,
+    }),
+  ),
+  on(
+    putTrips,
+    (state, payload): OrderState => ({
+      ...state,
+      trips: payload.trips,
     }),
   ),
 );

@@ -13,3 +13,4 @@ export const chooseTripIndex = createAction(
   '[Order] Choose Trip',
   (payload: { tripIndex: number }) => payload,
 );
+export const putTrips = createAction('[Order] Put Trips', (payload: { trips: Trip[] }) => payload);

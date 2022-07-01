@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatAll, first, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TaxiDriver, Trip, TripResponse } from '../schema/trip';
+import { TaxiDriver, Trip, TripResponse, TripStatus } from '../schema/trip';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,28 @@ export class TripDataService {
     return this.http.post<{ name: string }>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
   }
 
-  getAllTrips(): Observable<TripResponse> {
-    return this.http.get<TripResponse>(`${environment.FIREBASE_API_URL}/trips.json`);
+  getAllTrips(): Observable<Trip[]> {
+    return this.http
+      .get<TripResponse>(`${environment.FIREBASE_API_URL}/trips.json`)
+      .pipe(
+        map((tripsResponse) =>
+          tripsResponse
+            ? Object.keys(tripsResponse).map((key) => ({ ...tripsResponse[key], id: key }))
+            : [],
+        ),
+      );
+  }
+
+  getAllActiveTrips(): Observable<Trip[]> {
+    return this.getAllTrips().pipe(
+      map((trips: Trip[]) => trips.filter((trip) => trip.status !== TripStatus.Completion)),
+    );
+  }
+
+  updateStatusOfTrip(tripId: string, status: TripStatus): Observable<TripResponse> {
+    return this.http.patch<TripResponse>(`${environment.FIREBASE_API_URL}/trips/${tripId}.json`, {
+      status,
+    });
   }
 
   findTaxiDriver(): Observable<TaxiDriver> {

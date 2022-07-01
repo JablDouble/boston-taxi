@@ -1,4 +1,4 @@
-<a [routerLink]="trip.id">
+<a [routerLink]="trip.id" routerLinkActive="selected-order-item">
     <div class="order-item-card" *ngIf="trip">
         <h2>{{ formatterService.numberToWords(index) + ' taxi' | titlecase }}</h2>
         <p class="address-title">{{ trip?.arrivalAddress?.label}}</p>

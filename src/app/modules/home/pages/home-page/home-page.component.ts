@@ -30,6 +30,8 @@ export class HomePageComponent implements OnDestroy {
     public store: Store<OrderState>,
   ) {
     this.chosenTrip$.subscribe((trip: Trip) => (this.chosenTripStatus = trip?.status));
+
+    this.tripService.getAllActiveTrips().subscribe(); // get active trips at init
   }
 
   ngOnDestroy(): void {

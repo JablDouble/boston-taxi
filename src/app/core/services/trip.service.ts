@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { delay, map, Observable } from 'rxjs';
-import {
-  Tariff,
-  Taxi,
-  TaxiDriver,
-  TaxiOrder,
-  Trip,
-  TripResponse,
-  TripStatus,
-} from 'src/app/data/schema/trip';
+import { delay, Observable, tap } from 'rxjs';
+import { Tariff, Taxi, TaxiDriver, TaxiOrder, Trip, TripStatus } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
 import {
   assignTaxiDriver,
   chooseTripIndex,
   createNewTrip,
+  putTrips,
 } from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
@@ -25,9 +19,11 @@ import { LOCAL_ERRORS } from '../errors/errors';
 export class TripService {
   taxi: Taxi;
 
-  isSearching: boolean;
-
-  constructor(private tripDataService: TripDataService, private store: Store) {}
+  constructor(
+    private tripDataService: TripDataService,
+    private store: Store,
+    private router: Router,
+  ) {}
 
   createNewTrip(taxiOrder: TaxiOrder) {
     const { pickupAddress, arrivalAddress, tariff } = taxiOrder;
@@ -41,11 +37,11 @@ export class TripService {
       };
 
       return this.tripDataService.createNewTrip(trip).subscribe(({ name }) => {
+        this.router.navigate(['dashboard', 'home', 'order', name]);
         trip.id = name;
 
         if (trip.id) {
           this.store.dispatch(createNewTrip({ trip }));
-          this.isSearching = true;
 
           this.findTaxiDriver(trip);
         } else {
@@ -62,18 +58,13 @@ export class TripService {
   }
 
   getAllTrips(): Observable<Trip[]> {
-    return this.tripDataService.getAllTrips().pipe(
-      map((response: TripResponse) => {
-        if (response) {
-          return Object.keys(response).map((key: string) => ({
-            ...response[key],
-            id: key,
-          }));
-        }
+    return this.tripDataService.getAllTrips();
+  }
 
-        return [];
-      }),
-    );
+  getAllActiveTrips(): Observable<Trip[]> {
+    return this.tripDataService
+      .getAllActiveTrips()
+      .pipe(tap((trips: Trip[]) => this.store.dispatch(putTrips({ trips }))));
   }
 
   private findTaxiDriver(trip: Trip) {
@@ -85,14 +76,15 @@ export class TripService {
       .findTaxiDriver()
       .pipe(delay(5000))
       .subscribe((taxiDriver: TaxiDriver) => {
-        this.store.dispatch(
-          assignTaxiDriver({
-            tripId: trip.id!,
-            taxiDriver: taxiDriver,
-          }),
-        );
-        this.isSearching = false;
-        this.taxi = this.generateTaxiDriverPosition(taxiDriver, trip.pickupAddress);
+        this.tripDataService.updateStatusOfTrip(trip.id!, TripStatus.Accepted).subscribe(() => {
+          this.store.dispatch(
+            assignTaxiDriver({
+              tripId: trip.id!,
+              taxiDriver: taxiDriver,
+            }),
+          );
+          this.taxi = this.generateTaxiDriverPosition(taxiDriver, trip.pickupAddress);
+        });
       });
   }
 

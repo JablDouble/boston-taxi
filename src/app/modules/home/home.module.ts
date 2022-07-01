@@ -32,7 +32,15 @@ import { OrderItemComponent } from './components/order-list/order-item/order-ite
     OrderItemComponent,
   ],
   imports: [
-    RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),
+    RouterModule.forChild([
+      { path: '', redirectTo: '/dashboard/home/order', pathMatch: 'full' },
+      {
+        path: 'order',
+        component: HomePageComponent,
+        canActivate: [AuthGuard],
+        children: [{ path: ':tripId', component: HomePageComponent, canActivate: [AuthGuard] }],
+      },
+    ]),
     CommonModule,
     MapModule,
     AddressInputModule,
