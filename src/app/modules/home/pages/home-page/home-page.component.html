@@ -5,9 +5,9 @@
   </div>
   <div class="order-taxi-map">
     <app-map
-      [startAddress]="mapService.path.start"
-      [endAddress]="mapService.path.end"
-      [taxiPoint]="tripService?.taxi?.position || null"
+      [startAddress]="(chosenTrip$ | async)?.pickupAddress!"
+      [endAddress]="(chosenTrip$ | async)?.arrivalAddress!"
+      [taxiPoint]="(chosenTrip$ | async)?.taxiPosition!"
     ></app-map>
   </div>
   <app-order-list class="order-list-section"></app-order-list>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TripService } from 'src/app/core/services/trip.service';
 
 @Component({
   selector: 'app-create-order-page',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-order-page.component.scss'],
 })
 export class CreateOrderPageComponent {
-  constructor() {}
+  constructor(public tripService: TripService) {
+    this.tripService.chooseTrip(null);
+  }
 }

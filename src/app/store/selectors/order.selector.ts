@@ -15,3 +15,11 @@ export const selectTrip = (tripId: string) =>
         return trip.id === tripId;
       }) as Trip,
   );
+
+export const selectChosenTrip = createSelector(
+  getOrderState,
+  (state: OrderState): Trip =>
+    state.trips.find((trip) => {
+      return trip.id === state.chosenTripId;
+    }) as Trip,
+);

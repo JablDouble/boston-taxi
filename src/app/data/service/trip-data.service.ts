@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatAll, first, map, Observable } from 'rxjs';
+import { Coordinate } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import { TaxiDriver, Trip, TripResponse, TripStatus } from '../schema/trip';
 
@@ -38,10 +39,15 @@ export class TripDataService {
     });
   }
 
-  updateTaxiDriverOfTrip(tripId: string, taxiDriver: TaxiDriver): Observable<TripResponse> {
+  updateTaxiDriverOfTrip(
+    tripId: string,
+    taxiDriver: TaxiDriver,
+    taxiPosition: Coordinate,
+  ): Observable<TripResponse> {
     return this.http.patch<TripResponse>(`${environment.FIREBASE_API_URL}/trips/${tripId}.json`, {
       status: TripStatus.Accepted,
       taxiDriver,
+      taxiPosition,
     });
   }
 

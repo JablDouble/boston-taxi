@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, Observable, tap } from 'rxjs';
-import { Tariff, Taxi, TaxiDriver, TaxiOrder, Trip, TripStatus } from 'src/app/data/schema/trip';
+import { Tariff, TaxiDriver, TaxiOrder, Trip, TripStatus } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
-import { assignTaxiDriver, createNewTrip, putTrips } from 'src/app/store/actions/order.action';
+import {
+  assignTaxiDriver,
+  chooseTrip,
+  createNewTrip,
+  putTrips,
+} from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TripService {
-  taxi: Taxi;
-
   constructor(
     private tripDataService: TripDataService,
     private store: Store,
@@ -58,6 +61,10 @@ export class TripService {
       .pipe(tap((trips: Trip[]) => this.store.dispatch(putTrips({ trips }))));
   }
 
+  chooseTrip(tripId: string | null): void {
+    return this.store.dispatch(chooseTrip({ tripId }));
+  }
+
   private findTaxiDriver(trip: Trip) {
     if (!trip.id) {
       throw new Error(LOCAL_ERRORS['TRIP_NOT_CREATED']);
@@ -67,15 +74,18 @@ export class TripService {
       .findTaxiDriver()
       .pipe(delay(5000))
       .subscribe((taxiDriver: TaxiDriver) => {
-        this.tripDataService.updateTaxiDriverOfTrip(trip.id!, taxiDriver).subscribe(() => {
-          this.store.dispatch(
-            assignTaxiDriver({
-              tripId: trip.id!,
-              taxiDriver: taxiDriver,
-            }),
-          );
-          this.taxi = this.generateTaxiDriverPosition(taxiDriver, trip.pickupAddress);
-        });
+        const taxiPosition = this.generateTaxiDriverPosition(trip.pickupAddress);
+        this.tripDataService
+          .updateTaxiDriverOfTrip(trip.id!, taxiDriver, taxiPosition)
+          .subscribe(() => {
+            this.store.dispatch(
+              assignTaxiDriver({
+                tripId: trip.id!,
+                taxiDriver,
+                taxiPosition,
+              }),
+            );
+          });
       });
   }
 
@@ -103,13 +113,10 @@ export class TripService {
     return tariffCost + Math.floor(Math.random() * 100);
   }
 
-  private generateTaxiDriverPosition(taxiDriver: TaxiDriver, currentAddress: Address) {
+  private generateTaxiDriverPosition(currentAddress: Address) {
     return {
-      taxiDriver,
-      position: {
-        latitude: currentAddress.latitude - 0.00555850655,
-        longitude: currentAddress.longitude - 0.0001481538,
-      },
+      latitude: currentAddress.latitude - 0.00555850655,
+      longitude: currentAddress.longitude - 0.0001481538,
     }; // mock taxi position. Point near user
   }
 

@@ -1,7 +1,7 @@
 <app-taxi-searching-screen
-  *ngIf="chosenTrip.status === TripStatus.Search"
+  *ngIf="(chosenTrip$ | async)?.status === TripStatus.Search"
 ></app-taxi-searching-screen>
 <app-driver-info
-  [trip]="chosenTrip"
-  *ngIf="chosenTrip.status === TripStatus.Accepted"
+  *ngIf="(chosenTrip$ | async)?.status === TripStatus.Accepted"
+  [trip]="(chosenTrip$ | async)!"
 ></app-driver-info>

@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { TripStatus } from 'src/app/data/schema/trip';
-import { assignTaxiDriver, createNewTrip, putTrips } from '../actions/order.action';
+import { assignTaxiDriver, chooseTrip, createNewTrip, putTrips } from '../actions/order.action';
 import { OrderState } from '../types';
 
 export const orderNode = 'order';
 
 export const initialState: OrderState = {
   trips: [],
+  chosenTripId: null,
 };
 
 export const orderReducer = createReducer(
@@ -25,6 +26,7 @@ export const orderReducer = createReducer(
           ...trip,
           taxiDriver: payload.taxiDriver,
           status: TripStatus.Accepted,
+          taxiPosition: payload.taxiPosition,
         };
       }
 
@@ -41,6 +43,13 @@ export const orderReducer = createReducer(
     (state, payload): OrderState => ({
       ...state,
       trips: payload.trips,
+    }),
+  ),
+  on(
+    chooseTrip,
+    (state, payload): OrderState => ({
+      ...state,
+      chosenTripId: payload.tripId,
     }),
   ),
 );
