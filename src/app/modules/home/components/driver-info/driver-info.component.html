@@ -2,20 +2,20 @@
   <h3>Will come to you:</h3>
   <app-delimiter></app-delimiter>
   <app-data-record
-    [title]="taxiDriver?.name || 'Unknown person'"
-    [text]="taxiDriver?.phone || 'Not specified'"
+    [title]="trip.taxiDriver?.name || 'Unknown person'"
+    [text]="trip.taxiDriver?.phone || 'Not specified'"
     img="/assets/img/person.svg"
   ></app-data-record>
   <app-delimiter></app-delimiter>
   <app-data-record
-    [title]="tripService.getVehicleInfoByTaxiDriver(taxiDriver) || 'Unknown Brand'"
-    [text]="taxiDriver?.vehicle?.plateNumber || 'Unknown Number'"
+    [title]="tripService.getVehicleInfoByTaxiDriver(trip.taxiDriver!) || 'Unknown Brand'"
+    [text]="trip.taxiDriver?.vehicle?.plateNumber || 'Unknown Number'"
     img="/assets/img/car.svg"
   ></app-data-record>
   <app-delimiter></app-delimiter>
   <div class="additional-info-section">
     <div class="connection-section">
-      <a [href]="'tel: ' + taxiDriver?.phone" *ngIf="taxiDriver?.phone">
+      <a [href]="'tel: ' + trip.taxiDriver?.phone" *ngIf="trip.taxiDriver?.phone">
         <app-icon-button img="/assets/img/phone.svg"></app-icon-button>
       </a>
       <app-icon-button img="/assets/img/chat.svg"></app-icon-button>

@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { delay, map, Observable } from 'rxjs';
-import {
-  Tariff,
-  Taxi,
-  TaxiDriver,
-  TaxiOrder,
-  Trip,
-  TripResponse,
-  TripStatus,
-} from 'src/app/data/schema/trip';
+import { delay, Observable, tap } from 'rxjs';
+import { Tariff, TaxiDriver, TaxiOrder, Trip, TripStatus } from 'src/app/data/schema/trip';
 import { TripDataService } from 'src/app/data/service/trip-data.service';
 import { Address } from 'src/app/shared/types';
 import {
   assignTaxiDriver,
-  chooseTripIndex,
+  chooseTrip,
   createNewTrip,
+  putTrips,
 } from 'src/app/store/actions/order.action';
 import { LOCAL_ERRORS } from '../errors/errors';
 
@@ -23,11 +17,11 @@ import { LOCAL_ERRORS } from '../errors/errors';
   providedIn: 'root',
 })
 export class TripService {
-  taxi: Taxi;
-
-  isSearching: boolean;
-
-  constructor(private tripDataService: TripDataService, private store: Store) {}
+  constructor(
+    private tripDataService: TripDataService,
+    private store: Store,
+    private router: Router,
+  ) {}
 
   createNewTrip(taxiOrder: TaxiOrder) {
     const { pickupAddress, arrivalAddress, tariff } = taxiOrder;
@@ -41,11 +35,11 @@ export class TripService {
       };
 
       return this.tripDataService.createNewTrip(trip).subscribe(({ name }) => {
+        this.router.navigate(['dashboard', 'home', 'order', name]);
         trip.id = name;
 
         if (trip.id) {
           this.store.dispatch(createNewTrip({ trip }));
-          this.isSearching = true;
 
           this.findTaxiDriver(trip);
         } else {
@@ -57,23 +51,18 @@ export class TripService {
     }
   }
 
-  changeChosenTrip(tripIndex: number) {
-    this.store.dispatch(chooseTripIndex({ tripIndex }));
+  getAllTrips(): Observable<Trip[]> {
+    return this.tripDataService.getAllTrips();
   }
 
-  getAllTrips(): Observable<Trip[]> {
-    return this.tripDataService.getAllTrips().pipe(
-      map((response: TripResponse) => {
-        if (response) {
-          return Object.keys(response).map((key: string) => ({
-            ...response[key],
-            id: key,
-          }));
-        }
+  getAllActiveTrips(): Observable<Trip[]> {
+    return this.tripDataService
+      .getAllActiveTrips()
+      .pipe(tap((trips: Trip[]) => this.store.dispatch(putTrips({ trips }))));
+  }
 
-        return [];
-      }),
-    );
+  chooseTrip(tripId: string | null): void {
+    return this.store.dispatch(chooseTrip({ tripId }));
   }
 
   private findTaxiDriver(trip: Trip) {
@@ -85,14 +74,18 @@ export class TripService {
       .findTaxiDriver()
       .pipe(delay(5000))
       .subscribe((taxiDriver: TaxiDriver) => {
-        this.store.dispatch(
-          assignTaxiDriver({
-            tripId: trip.id!,
-            taxiDriver: taxiDriver,
-          }),
-        );
-        this.isSearching = false;
-        this.taxi = this.generateTaxiDriverPosition(taxiDriver, trip.pickupAddress);
+        const taxiPosition = this.generateTaxiDriverPosition(trip.pickupAddress);
+        this.tripDataService
+          .updateTaxiDriverOfTrip(trip.id!, taxiDriver, taxiPosition)
+          .subscribe(() => {
+            this.store.dispatch(
+              assignTaxiDriver({
+                tripId: trip.id!,
+                taxiDriver,
+                taxiPosition,
+              }),
+            );
+          });
       });
   }
 
@@ -120,13 +113,10 @@ export class TripService {
     return tariffCost + Math.floor(Math.random() * 100);
   }
 
-  private generateTaxiDriverPosition(taxiDriver: TaxiDriver, currentAddress: Address) {
+  private generateTaxiDriverPosition(currentAddress: Address) {
     return {
-      taxiDriver,
-      position: {
-        latitude: currentAddress.latitude - 0.00555850655,
-        longitude: currentAddress.longitude - 0.0001481538,
-      },
+      latitude: currentAddress.latitude - 0.00555850655,
+      longitude: currentAddress.longitude - 0.0001481538,
     }; // mock taxi position. Point near user
   }
 

@@ -20,6 +20,8 @@ import { TaxiTypeToggleGroupModule } from 'src/app/shared/components/taxi-type-t
 import { OrderAnotherCarButtonComponent } from './components/order-another-car-button/order-another-car-button.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrderItemComponent } from './components/order-list/order-item/order-item.component';
+import { CreateOrderPageComponent } from './pages/create-order-page/create-order-page.component';
+import { OrderProcessPageComponent } from './pages/order-process-page/order-process-page.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,31 @@ import { OrderItemComponent } from './components/order-list/order-item/order-ite
     OrderAnotherCarButtonComponent,
     OrderListComponent,
     OrderItemComponent,
+    CreateOrderPageComponent,
+    OrderProcessPageComponent,
   ],
   imports: [
-    RouterModule.forChild([{ path: '', component: HomePageComponent, canActivate: [AuthGuard] }]),
+    RouterModule.forChild([
+      { path: '', redirectTo: '/dashboard/home/order', pathMatch: 'full' },
+      {
+        path: '',
+        component: HomePageComponent,
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'order',
+            component: CreateOrderPageComponent,
+            canActivate: [AuthGuard],
+            pathMatch: 'full',
+          },
+          {
+            path: 'order/:tripId',
+            component: OrderProcessPageComponent,
+            canActivate: [AuthGuard],
+          },
+        ],
+      },
+    ]),
     CommonModule,
     MapModule,
     AddressInputModule,

@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Trip } from 'src/app/data/schema/trip';
 import { OrderState } from 'src/app/store/types';
-import { selectChosenTripIndex, selectTrips } from 'src/app/store/selectors/order.selector';
+import { selectTrips } from 'src/app/store/selectors/order.selector';
 import { TripService } from 'src/app/core/services/trip.service';
 
 @Component({
@@ -13,8 +13,6 @@ import { TripService } from 'src/app/core/services/trip.service';
 })
 export class OrderAnotherCarButtonComponent {
   public trips$: Observable<Trip[]> = this.store.pipe(select(selectTrips));
-
-  public chosenTrip$: Observable<number> = this.store.pipe(select(selectChosenTripIndex));
 
   constructor(public store: Store<OrderState>, public tripService: TripService) {}
 }

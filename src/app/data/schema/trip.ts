@@ -4,11 +4,6 @@ export interface TripResponse {
   [key: string]: Trip;
 }
 
-export interface Taxi {
-  taxiDriver: TaxiDriver;
-  position: Coordinate;
-}
-
 export interface TaxiDriver {
   name: string;
   phone: string;
@@ -47,6 +42,7 @@ export interface Trip extends TaxiOrder {
   id?: string;
   time: Date;
   taxiDriver?: TaxiDriver;
+  taxiPosition?: Coordinate;
   amount: number;
   status: TripStatus;
 }

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatAll, first, map, Observable } from 'rxjs';
+import { Coordinate } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
-import { TaxiDriver, Trip, TripResponse } from '../schema/trip';
+import { TaxiDriver, Trip, TripResponse, TripStatus } from '../schema/trip';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,40 @@ export class TripDataService {
     return this.http.post<{ name: string }>(`${environment.FIREBASE_API_URL}/trips.json`, trip);
   }
 
-  getAllTrips(): Observable<TripResponse> {
-    return this.http.get<TripResponse>(`${environment.FIREBASE_API_URL}/trips.json`);
+  getAllTrips(): Observable<Trip[]> {
+    return this.http
+      .get<TripResponse>(`${environment.FIREBASE_API_URL}/trips.json`)
+      .pipe(
+        map((tripsResponse) =>
+          tripsResponse
+            ? Object.keys(tripsResponse).map((key) => ({ ...tripsResponse[key], id: key }))
+            : [],
+        ),
+      );
+  }
+
+  getAllActiveTrips(): Observable<Trip[]> {
+    return this.getAllTrips().pipe(
+      map((trips: Trip[]) => trips.filter((trip) => trip.status !== TripStatus.Completion)),
+    );
+  }
+
+  updateStatusOfTrip(tripId: string, status: TripStatus): Observable<TripResponse> {
+    return this.http.patch<TripResponse>(`${environment.FIREBASE_API_URL}/trips/${tripId}.json`, {
+      status,
+    });
+  }
+
+  updateTaxiDriverOfTrip(
+    tripId: string,
+    taxiDriver: TaxiDriver,
+    taxiPosition: Coordinate,
+  ): Observable<TripResponse> {
+    return this.http.patch<TripResponse>(`${environment.FIREBASE_API_URL}/trips/${tripId}.json`, {
+      status: TripStatus.Accepted,
+      taxiDriver,
+      taxiPosition,
+    });
   }
 
   findTaxiDriver(): Observable<TaxiDriver> {
@@ -34,7 +67,7 @@ export class TripDataService {
           vehicle: {
             brand: 'Chevrolet',
             model: 'Cruze',
-            plateNumber: '7139PI-7',
+            plateNumber: `${Math.floor(Math.random() * 8999) + 1000}PI-7`,
           }, // mock vehicle data
         })),
       );

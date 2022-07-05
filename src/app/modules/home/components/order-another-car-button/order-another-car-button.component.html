@@ -1,7 +1,5 @@
-<app-button
-  class="order-another-car-btn"
-  color="secondary"
-  *ngIf="(chosenTrip$ | async) && (trips$ | async)?.length"
-  (click)="tripService.changeChosenTrip(0)"
-  >Order another taxi</app-button
->
+<a [routerLink]="['order']">
+  <app-button class="order-another-car-btn" color="secondary" *ngIf="(trips$ | async)?.length"
+    >Order another taxi</app-button
+  >
+</a>
